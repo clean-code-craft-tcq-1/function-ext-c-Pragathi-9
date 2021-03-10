@@ -36,7 +36,7 @@ int BMS_ChargeRateCheck(float charge_rate)
  *********************************************************************************/
 bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
 {
-	return((parameter >= minlimit) || (parameter < maxlimit));
+	return((parameter >= minlimit) && (parameter < maxlimit));
 }
 
 int BMS_RangeStages(float parameter, float maxrange, float minrange)
@@ -158,7 +158,7 @@ int batteryIsOk(float ChargeRate, float stateofcharge, float temperature)
 
 int main() {
   
-  assert(batteryIsOk(0.4, 70, 50));
+  assert(batteryIsOk(0.4, 70, 30));
   assert(!batteryIsOk(0,85,50));
   assert(!batteryIsOk(0.6,50,30));
   assert(!batteryIsOk(0.2,50,60));
