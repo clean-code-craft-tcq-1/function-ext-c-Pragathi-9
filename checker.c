@@ -10,7 +10,7 @@
 
 float tolerance (float upperlimit)
 {
-	return(((5/100)*upperlimit));
+	return((5/100)*upperlimit);
 }
 /********************************************************************************
  * A function that gives Charge rate of a Battery management system.
@@ -153,7 +153,7 @@ int batteryIsOk(float ChargeRate, float stateofcharge, float temperature)
 
 int main() {
   
-  assert(batteryIsOk(0.4, 70, 25));
+  assert(batteryIsOk(0.4, 70, 50));
   assert(!batteryIsOk(0,85,50));
   assert(!batteryIsOk(0.6,50,30));
   assert(!batteryIsOk(0.2,50,60));
