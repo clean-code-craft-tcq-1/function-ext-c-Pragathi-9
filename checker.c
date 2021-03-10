@@ -8,13 +8,9 @@
 
 /******************************************************************************/
 
-float positivetolerance (float lowerlimit)
+float tolerance (float upperlimit)
 {
-	return(lowerlimit + ((5/100)*lowerlimit));
-}
-float negativetolerance (float upperlimit)
-{
-	return(upperlimit - ((5/100)*upperlimit));
+	return(((5/100)*upperlimit));
 }
 /********************************************************************************
  * A function that gives Charge rate of a Battery management system.
@@ -46,8 +42,8 @@ bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
 int BMS_RangeStages(float parameter, float maxrange, float minrange)
 {
 	int index=0;
-	float lowwarninglimit = positivetolerance(maxrange);
-	float highwaninglimit= negativetolerance(maxrange);
+	float lowwarninglimit = (minrange + tolerance(maxrange));
+	float highwaninglimit=  (maxrange - tolerance(maxrange));
 	
 	if(BMS_RangeCheck(parameter, minrange,0))
 	   { 
