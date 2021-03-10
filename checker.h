@@ -30,4 +30,4 @@ const char* TemperatureStatus[] = {
 /****************************************************************************
 Function declaration
 /***************************************************************************/
-int batteryIsOk(float StateofHealth, float ChargeRate, float stateofcharge, float temperature);
+int batteryIsOk(float ChargeRate, float stateofcharge, float temperature);
