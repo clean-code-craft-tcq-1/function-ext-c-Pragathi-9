@@ -5,38 +5,17 @@
 #include <assert.h>	
 #include <stdbool.h>
 #include "checker.h"
-/********************************************************************************
- * A function that gives the State-of -Health status of a battery management system.
- * if the current SOH rating us below the threshold 0.5%, then the battery is unacceptable.
- * The SOH at the manufacturing unit is 100%
- * input: Current SOH value
- * returns: Check if the value is greater than the threshold
- *********************************************************************************/
-int StateOfHealth_check (float currentsoh)
+
+/******************************************************************************/
+
+float positivetolerance (float lowerlimit)
 {
-  return (currentsoh > 0.5 ? 1:0);
+	return(lowerlimit + ((5/100)*lowerlimit));
 }
-
-/*************************************************************************************************
- * Process: Display the State of Health of the battery currently as compared to ideal conditions
- ************************************************************************************************/
-int BMS_StateOfHealth (float soh)
+float negativetolerance (float upperlimit)
 {
- 
- int sohcheck = StateOfHealth_check(soh);
- if (sohcheck)
-  {
-    printf(" State-of-Health of battery is %f, Battery conditions are good as compared to ideal conditions \n", soh );
-	return 1;
-  }
-  else
-  {
-    printf (" State-of-Health of battery is %f, Battery conditions are poor and cannot be used for the application \n", soh);
-	return 0;
-  } 
+	return(upperlimit - ((5/100)*upperlimit));
 }
-
-
 /********************************************************************************
  * A function that gives Charge rate of a Battery management system.
  * if the current Charge rating is above the threshold, then the battery is unacceptable.
@@ -45,7 +24,7 @@ int BMS_StateOfHealth (float soh)
  *********************************************************************************/
 int BMS_ChargeRateCheck(float charge_rate)
 {
-	int chargerate_check=(charge_rate>MAXCHARGERATE);
+	int chargerate_check = (charge_rate > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {
 		printf("Charge Rate is %f and is out of range!\n", charge_rate);
@@ -59,10 +38,31 @@ int BMS_ChargeRateCheck(float charge_rate)
  * input: parameter, aximum and minimum range to be checked
  * returns: Check if the parameter is out of the given maximum and minimum range
  *********************************************************************************/
-bool BMS_RangeCheck(float parameter, float maxrange, float minrange)
+bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
 {
-	return((parameter < minrange) || (parameter > maxrange));
+	return((parameter >= minlimit) || (parameter < maxlimit));
 }
+
+int BMS_RangeStages(float parameter, float maxrange, float minrange)
+{
+	int index=0;
+	float lowwarninglimit = positivetolerance(minrange);
+	float highwaninglimit= negativetolerance(maxrange);
+	
+	if((BMS_RangeCheck(parameter, minrange,0))
+	        index=0;
+	if (BMS_RangeCheck(parameter, lowwarninglimit,minrange))
+		index=1;
+	if (BMS_RangeCheck(parameter, highwaninglimit,lowwarninglimit))
+		index=2;
+	if(BMS_RangeCheck(parameter, maxrange,highwaninglimit))
+	    	index=3;
+	if((BMS_RangeCheck(parameter, 100,maxrange)) 	
+		index=4;
+	   
+ return (index);
+}
+		    
 /********************************************************************************
  * A function that gives State-of-Charge parameter check of a Battery management system.
  * if the current SOC is outside the boundary conditions, then the battery is unacceptable.
@@ -74,13 +74,15 @@ bool BMS_RangeCheck(float parameter, float maxrange, float minrange)
  
 int BMS_StateOfCharge(float soc)
 {
-  bool soc_check=  BMS_RangeCheck(soc,MAXSOC,MINSOC);
-  if (soc_check)
-  {
-     printf("State of Charge is %f percent, and is out of range!\n", soc);
-     return 0;
+  int soc_check=  BMS_RangeStages(soc,MAXSOC,MINSOC);
+  printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[soc_check]);
+  if ((soc_check==0)|| (soc==4))
+  { 
+    return 0;
   }
-  return 1;
+  else
+    return 1;
+  
 }
 
 /********************************************************************************
@@ -92,14 +94,13 @@ int BMS_StateOfCharge(float soc)
  
 int BMS_TemperatureCheck(float temperature_deg)
 {
-  bool temperature_check= BMS_RangeCheck(temperature_deg,MAXTEMP,MINTEMP);
-  if(temperature_check)
+  int temperature_check= BMS_RangeStages(temperature_deg,MAXTEMP,MINTEMP);
+  printf("Temperature is %f and  %s\n", temperature_deg, TemperatureStatus[temperature_check]);
+  if((temperature_check==0)|| (temperature_check==4)))
   {
-   printf("Temperature is %f and is out of range!\n", temperature_deg);
     return 0;
   } 
-  
-  printf(" The current BMS temperature is %f, and the conditions are ideal for charging the battery. \n", temperature_deg);
+  else
   return 1;
   
 }
@@ -126,10 +127,10 @@ void BMS_DisplayCondition(int condition)
  * returns: True is the factors meet the requirement
  *********************************************************************************/
  
-int batteryIsOk(float StateofHealth, float ChargeRate, float stateofcharge, float temperature) 
+int batteryIsOk(float ChargeRate, float stateofcharge, float temperature) 
 {
   int status;
-     status =  (BMS_StateOfHealth(StateofHealth)) & (BMS_StateOfCharge(stateofcharge)) & (BMS_ChargeRateCheck(ChargeRate)) & (BMS_TemperatureCheck(temperature));
+     status =   (BMS_StateOfCharge(stateofcharge)) & (BMS_ChargeRateCheck(ChargeRate)) & (BMS_TemperatureCheck(temperature));
      BMS_DisplayCondition(status);
      return (status);
 }
@@ -142,9 +143,9 @@ int batteryIsOk(float StateofHealth, float ChargeRate, float stateofcharge, floa
 
 int main() {
   
-  assert(batteryIsOk(0.7, 0.4, 70, 25));
-  assert(!batteryIsOk(0.4,0,85,50));
-  assert(!batteryIsOk(0.6,0.6,50,30));
-  assert(!batteryIsOk(0.7,0.2,50,60));
+  assert(batteryIsOk(0.4, 70, 25));
+  assert(!batteryIsOk(0,85,50));
+  assert(!batteryIsOk(0.6,50,30));
+  assert(!batteryIsOk(0.2,50,60));
 }
 
