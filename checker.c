@@ -48,7 +48,7 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 	index= ((parameter >= minrange) && (parameter < lowwarninglimit))? 1:0;
 	index= ((parameter >= lowwarninglimit) && (parameter < highwaninglimit))? 2:0;
         index= ((parameter >= highwaninglimit) && (parameter < maxrange))? 2:0;
-	index= (parameter >= minrange)? 4:0;
+	index= (parameter >= maxrange)? 4:0;
 	 
  return (index);
 }
