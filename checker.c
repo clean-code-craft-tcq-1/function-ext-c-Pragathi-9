@@ -50,15 +50,25 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 	float highwaninglimit= negativetolerance(maxrange);
 	
 	if((BMS_RangeCheck(parameter, minrange,0))
-	        index=0;
+	   { 
+		index=0;
+	   }
 	if (BMS_RangeCheck(parameter, lowwarninglimit,minrange))
-		index=1;
+	   {
+	   	index=1;
+	   }
 	if (BMS_RangeCheck(parameter, highwaninglimit,lowwarninglimit))
+	   {
 		index=2;
+	   }
 	if(BMS_RangeCheck(parameter, maxrange,highwaninglimit))
-	    	index=3;
+	   {
+		index=3;
+	   }
 	if((BMS_RangeCheck(parameter, 100,maxrange)) 	
+	   {
 		index=4;
+	   }
 	   
  return (index);
 }
@@ -81,7 +91,9 @@ int BMS_StateOfCharge(float soc)
     return 0;
   }
   else
+  {
     return 1;
+  }
   
 }
 
@@ -101,7 +113,9 @@ int BMS_TemperatureCheck(float temperature_deg)
     return 0;
   } 
   else
-  return 1;
+  {
+    return 1;
+  }
   
 }
 
