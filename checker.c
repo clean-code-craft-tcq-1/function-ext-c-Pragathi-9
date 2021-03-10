@@ -49,7 +49,7 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 	float lowwarninglimit = positivetolerance(minrange);
 	float highwaninglimit= negativetolerance(maxrange);
 	
-	if((BMS_RangeCheck(parameter, minrange,0))
+	if(BMS_RangeCheck(parameter, minrange,0))
 	   { 
 		index=0;
 	   }
