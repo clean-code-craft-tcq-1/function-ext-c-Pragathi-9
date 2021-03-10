@@ -65,7 +65,7 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 		index=3;
 		return (index);
 	   }
-	if(BMS_RangeCheck(parameter > maxrange)) 	
+	if(parameter >= maxrange) 	
 	   {
 		index=4;
 		return (index);
