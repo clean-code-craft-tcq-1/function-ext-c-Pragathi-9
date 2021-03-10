@@ -48,8 +48,8 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 	bool lowwarning= (BMS_RangeCheck(parameter, lowwarninglimit,minrange));
 	bool normalcondition= (BMS_RangeCheck(parameter, highwaninglimit,lowwarninglimit));
 	bool highwarning= (BMS_RangeCheck(parameter, maxrange,highwaninglimit));
-	bool highbreachwarning= (parameter >= maxrange)? 4:0;
-	if (breachwarning)
+	bool highbreachwarning= (parameter >= maxrange)? 1:0;
+	if (lowwarning)
 	   {
 		return (1);
 	   }
