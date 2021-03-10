@@ -45,10 +45,26 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 	float lowwarninglimit = (minrange + tolerance(maxrange));
 	float highwaninglimit=  (maxrange - tolerance(maxrange));
 	
-	index= ((parameter >= minrange) && (parameter < lowwarninglimit))? 1:0;
-	index= ((parameter >= lowwarninglimit) && (parameter < highwaninglimit))? 2:0;
-        index= ((parameter >= highwaninglimit) && (parameter < maxrange))? 2:0;
-	index= (parameter >= maxrange)? 4:0;
+	
+	if (BMS_RangeCheck(parameter, lowwarninglimit,minrange))
+	   {
+	   	index=1;
+		return (index);
+	   }
+        if (BMS_RangeCheck(parameter, highwaninglimit,lowwarninglimit))
+	   {
+		index=2;
+		return (index);
+	   }
+	if(BMS_RangeCheck(parameter, maxrange,highwaninglimit))
+	   {
+		index=3;
+		return (index);
+	   }
+	 else
+	 {
+		 index= (parameter >= maxrange)? 4:0;
+	 }
 	 
  return (index);
 }
