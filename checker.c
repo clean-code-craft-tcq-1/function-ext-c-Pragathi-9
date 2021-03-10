@@ -65,7 +65,7 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
 	   {
 		index=3;
 	   }
-	if((BMS_RangeCheck(parameter, 100,maxrange)) 	
+	if(BMS_RangeCheck(parameter, 100,maxrange)) 	
 	   {
 		index=4;
 	   }
@@ -108,7 +108,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 {
   int temperature_check= BMS_RangeStages(temperature_deg,MAXTEMP,MINTEMP);
   printf("Temperature is %f and  %s\n", temperature_deg, TemperatureStatus[temperature_check]);
-  if((temperature_check==0)|| (temperature_check==4)))
+  if((temperature_check==0)|| (temperature_check==4))
   {
     return 0;
   } 
@@ -144,7 +144,7 @@ void BMS_DisplayCondition(int condition)
 int batteryIsOk(float ChargeRate, float stateofcharge, float temperature) 
 {
   int status;
-     status =   (BMS_StateOfCharge(stateofcharge)) & (BMS_ChargeRateCheck(ChargeRate)) & (BMS_TemperatureCheck(temperature));
+     status = (BMS_StateOfCharge(stateofcharge)) & (BMS_ChargeRateCheck(ChargeRate)) & (BMS_TemperatureCheck(temperature));
      BMS_DisplayCondition(status);
      return (status);
 }
