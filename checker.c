@@ -26,12 +26,12 @@ int BMS_ChargeRateCheck(float chargerate_val)
 	 if(chargerate_check)
 		
 	   {	
-		DisplayAttributeCondition(chargerate_val, 4);
+		DisplayAttributeCondition(factor_Chargerate, chargerate_val, 4);
 		return 0;
 	   }
 	else
 	{
-		DisplayAttributeCondition(chargerate_val, 2);  
+		DisplayAttributeCondition(factor_Chargerate, chargerate_val, 2);  
 		return 1;
 	}
 }
@@ -178,7 +178,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(attribute, float value, int array)
+void DisplayAttributeCondition(factor attribute, float value, int array)
 {
 
 	if (language==German)
