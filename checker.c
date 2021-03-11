@@ -19,10 +19,11 @@ float tolerance (float upperlimit)
  * input: Current charge rate in decimal (percentage converted to floating value)
  * returns: Check if the charge rate is out of boundary conditions
  *********************************************************************************/
-int BMS_ChargeRateCheck(static float chargerate_val)
+int BMS_ChargeRateCheck(float chargerate_val)
 {	printf("%f test in chargerate function \n", chargerate_val);
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
 	 if(chargerate_check)
+		 float chargerate_val=9.6;
 	   {	printf("%f test in chargerate function if loop\n", chargerate_val);
 		DisplayAttributeCondition(chargerate_val, 4);
 		return 0;
@@ -177,7 +178,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(static float value, int array)
+void DisplayAttributeCondition(float value, int array)
 {
 	//float testvalue=5;
 	printf("%f inside display function\n",value);
@@ -215,7 +216,7 @@ void BMS_DisplayBMSCondition(int condition)
  * returns: True is the factors meet the requirement
  *********************************************************************************/
  
-int batteryIsOk(static float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
+int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
 {
   int status;
      //printf("%f",ChargeRate_Value);
@@ -231,7 +232,7 @@ int batteryIsOk(static float ChargeRate_Value, float StateofCharge_Value, float 
  *********************************************************************************/
 
 int main() {
-	//void DisplayAttributeCondition( static float value, int array);
+	//void DisplayAttributeCondition(  float value, int array);
   language=German;
   assert(batteryIsOk(0.4, 70, 30));
   assert(!batteryIsOk(0,85,45));
