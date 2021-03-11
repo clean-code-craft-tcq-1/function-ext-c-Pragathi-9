@@ -180,11 +180,11 @@ void DisplayAttributeCondition(int attribute, float value, int array)
 {
 	if (language==German)
 	{
-		printf("%s ist %f und %s\n", BMSattributeGerman[attribute], 0.9, DisplayinGerman[array]);
+		printf("%s ist %d und %s\n", BMSattributeGerman[attribute], 5, DisplayinGerman[array]);
 	}
 	else
 	{
-		printf("%s is %f and %s \n", BMSattributeEnglish[attribute], 5, DisplayinEnglish[array]);
+		printf("%s is %d and %s \n", BMSattributeEnglish[attribute], 6, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
@@ -215,7 +215,7 @@ void BMS_DisplayBMSCondition(int condition)
 int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
 {
   int status;
-     status =  (BMS_ChargeRateCheck(0.4)) & (BMS_StateOfCharge(StateofCharge_Value)) & (BMS_TemperatureCheck(Temperature_Value));
+     status =  (BMS_ChargeRateCheck(ChargeRate_Value)) & (BMS_StateOfCharge(StateofCharge_Value)) & (BMS_TemperatureCheck(Temperature_Value));
      BMS_DisplayBMSCondition(status);
      return (status);
 }
