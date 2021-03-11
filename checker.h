@@ -16,34 +16,22 @@
 
 int language=German;
 
-const char* StateofChargeinGerman[] = {
-" Warnung: Der Ladezustand ist niedrig", 
-"Warnung: Ladezustand niedrig",
- " Ladezustand NORMAL", 
-"Warnung: Ladezustand hoch",
- "Warnung: High-Level des Ladezustands verletzt"
-};
-const char* StateofChargeinEnglish[] = {
-" Warning: State-of-Charge low level breahced", 
-"Warning: State-of-Charge level low",
- " State-of-Charge level NORMAL", 
-"Warning: State-of-Charge level High",
- "Warning: State-of-Charge high level breached"
-};
+enum factor {Chargerate, StateofCharge, temperature};
 
-const char* TemperatureStatusEnglish[] = {
-" Warning: Temperature low level breahced", 
-"Warning: Temperature level low",
- " Temperature is NORMAL, and within the ideal range", 
-"Warning: Temperature level High",
- "Warning: Temperature high level breached"
+const char* BMSattribute[]= {"Charge-rate", "State-of-Charge", "Temperature"};
+const char* DisplayinGerman[] = {
+"Warnung: niedriger Pegel durchbrochen", 
+"Warnung: Stufe niedrig",
+ " ist normal", 
+"Warnung: Stufe hoch",
+ "Warnung: High Level verletzt"
 };
-const char* TemperatureStatusGerman[] = {
-" Warnung: Temperatur niedrig durchbrochen", 
-"Warnung: Temperaturniveau niedrig ",
- " Die Temperatur ist NORMAL und liegt im idealen Bereich", 
-"Warnung: Temperaturstufe hoch",
- "Warnung: Hohe Temperatur verletzt"
+const char* DisplayinEnglish[] = {
+" Warning: low level breahced", 
+"Warning: level low",
+ "  is NORMAL", 
+"Warning: level High",
+ "Warning:high level breached"
 };
 
 const char* BMSGoodStatus[]={
