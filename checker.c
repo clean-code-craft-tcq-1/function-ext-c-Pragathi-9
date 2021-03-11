@@ -215,7 +215,7 @@ void BMS_DisplayBMSCondition(int condition)
  * returns: True is the factors meet the requirement
  *********************************************************************************/
  
-int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
+int batteryIsOk(static float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
 {
   int status;
      //printf("%f",ChargeRate_Value);
