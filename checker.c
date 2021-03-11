@@ -172,15 +172,15 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(enum factor attribute, float attribute_value, int array)
+void DisplayAttributeCondition(enum factor attribute, float value, int array)
 {
 	if (language==German)
 	{
-		printf("%s ist %f, und %s\n", BMSattributeGerman[attribute], attribute_value, DisplayinGerman[array]);
+		printf("%s ist %f, und %s\n", BMSattributeGerman[attribute], value, DisplayinGerman[array]);
 	}
 	else
 	{
-		printf("%s is %f, and %s \n", BMSattributeEnglish[attribute], attribute_value, DisplayinEnglish[array]);
+		printf("%s is %f, and %s \n", BMSattributeEnglish[attribute], value, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
@@ -225,10 +225,10 @@ int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Tempera
 int main() {
   language=German;
   assert(batteryIsOk(0.4, 70, 30));
-  assert(!batteryIsOk(0,85,50));
+  assert(!batteryIsOk(0,85,45));
   language=English;
-  assert(batteryIsOk(0.3, 25, 25));
-  assert(!batteryIsOk(0.6,50,30));
-  assert(!batteryIsOk(0.2,50,60));
+  assert(batteryIsOk(0.3, 22, 5));
+  assert(!batteryIsOk(0.6,80,46));
+  assert(!batteryIsOk(0.2,19,44));
 }
 
