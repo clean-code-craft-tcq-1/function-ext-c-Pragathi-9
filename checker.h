@@ -18,7 +18,9 @@ int language=German;
 
 enum factor {Chargerate, StateofCharge, temperature};
 
-const char* BMSattribute[]= {"Charge-rate", "State-of-Charge", "Temperature"};
+const char* BMSattributeEnglish[]= {"Charge-rate", "State-of-Charge", "Temperature"};
+const char* BMSattributeGerman[]= {"Laderate "," Ladezustand "," Temperatur "};
+
 const char* DisplayinGerman[] = {
 "Warnung: niedriger Pegel durchbrochen", 
 "Warnung: Stufe niedrig",
