@@ -49,4 +49,4 @@ const char* BMSPoorStatus[]={
 Function declaration
 /***************************************************************************/
 int batteryIsOk( float ChargeRate, float stateofcharge, float temperature);
-void DisplayAttributeCondition(factor attribute, float value, int array);
+void DisplayAttributeCondition(enum factor attribute, float value, int array);
