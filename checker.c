@@ -7,7 +7,8 @@
 #include "checker.h"
 
 enum factor attribute;
-/******************************************************************************/
+/******************************************************************************
+******************************************************************************/
 
 float tolerance (float upperlimit)
 {
@@ -155,7 +156,7 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
 	DisplayAttributeCondition(factor_temperature,temperature_deg,0);
 	return 0;
   }
-  if (temp_deg>=MAXTEMP)
+  if (temperature_deg>=MAXTEMP)
   {
 	DisplayAttributeCondition(factor_temperature,temperature_deg,4);
 	return 0;
