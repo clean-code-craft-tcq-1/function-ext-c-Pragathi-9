@@ -177,7 +177,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition( float value, int array)
+void DisplayAttributeCondition(static float value, int array)
 {
 	//float testvalue=5;
 	printf("%f inside display function\n",value);
@@ -231,6 +231,7 @@ int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Tempera
  *********************************************************************************/
 
 int main() {
+	//void DisplayAttributeCondition( static float value, int array);
   language=German;
   assert(batteryIsOk(0.4, 70, 30));
   assert(!batteryIsOk(0,85,45));
