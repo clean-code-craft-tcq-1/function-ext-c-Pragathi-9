@@ -20,16 +20,16 @@ float tolerance (float upperlimit)
  * returns: Check if the charge rate is out of boundary conditions
  *********************************************************************************/
 int BMS_ChargeRateCheck(float chargerate_val)
-{	printf("%f test in chargerate function /n", chargerate_val);
+{	printf("%f test in chargerate function \n", chargerate_val);
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
 	 if(chargerate_check)
-	   {	printf("%f test in chargerate function if loop/n", chargerate_val);
+	   {	printf("%f test in chargerate function if loop\n", chargerate_val);
 		DisplayAttributeCondition(factor_Chargerate,chargerate_val, 4);
 		return 0;
 	   }
 	else
 	{
-		printf("%f test in chargerate function else loop/n", chargerate_val);
+		printf("%f test in chargerate function else loop\n", chargerate_val);
 	DisplayAttributeCondition(factor_Chargerate,chargerate_val, 2);  
 	return 1;
 	}
@@ -180,6 +180,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 void DisplayAttributeCondition(int attribute, float value, int array)
 {
 	//float testvalue=5;
+	printf("%f inside display function\n",value);
 	if (language==German)
 	{
 		printf("%s ist %s und %f\n", BMSattributeGerman[attribute], DisplayinGerman[array],value);
