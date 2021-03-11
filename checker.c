@@ -24,13 +24,13 @@ int BMS_ChargeRateCheck(float chargerate_val)
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {	printf("%f test in chargerate function if loop\n", chargerate_val);
-		DisplayAttributeCondition(factor_Chargerate,chargerate_val, 4);
+		DisplayAttributeCondition(chargerate_val, 4);
 		return 0;
 	   }
 	else
 	{
 		printf("%f test in chargerate function else loop\n", chargerate_val);
-	DisplayAttributeCondition(factor_Chargerate,chargerate_val, 2);  
+	DisplayAttributeCondition(chargerate_val, 2);  
 	return 1;
 	}
 }
@@ -177,17 +177,17 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(int attribute, float value, int array)
+void DisplayAttributeCondition( float value, int array)
 {
 	//float testvalue=5;
 	printf("%f inside display function\n",value);
 	if (language==German)
 	{
-		printf("%s ist %s und %f\n", BMSattributeGerman[attribute], DisplayinGerman[array],value);
+		printf("%s ist  und %f\n",  DisplayinGerman[array],value);
 	}
 	else
 	{
-		//printf("%s is %f and %s \n", BMSattributeEnglish[attribute], 6, DisplayinEnglish[array]);
+		//printf("%s is %f and %s \n",  6, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
