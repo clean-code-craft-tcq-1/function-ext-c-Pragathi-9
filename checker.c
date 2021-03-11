@@ -20,20 +20,19 @@ float tolerance (float upperlimit)
  * returns: Check if the charge rate is out of boundary conditions
  *********************************************************************************/
 int BMS_ChargeRateCheck(float chargerate_val)
-{	printf("%f test in chargerate function \n", chargerate_val);
+{	
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
-  chargerate_val=9.6;
+ 
 	 if(chargerate_check)
 		
-	   {	printf("%f test in chargerate function if loop\n", chargerate_val);
+	   {	
 		DisplayAttributeCondition(chargerate_val, 4);
 		return 0;
 	   }
 	else
 	{
-		printf("%f test in chargerate function else loop\n", chargerate_val);
-	DisplayAttributeCondition(chargerate_val, 2);  
-	return 1;
+		DisplayAttributeCondition(chargerate_val, 2);  
+		return 1;
 	}
 }
 /********************************************************************************
@@ -81,7 +80,7 @@ bool BMS_StateOfChargeInRange(float soc_val)
   int soc_check=  BMS_WarningRanges(soc_val,MAXSOC,MINSOC);
   if (soc_check>0)
   {
-	   //DisplayAttributeCondition(factor_StateofCharge,soc_val, soc_check);
+	   DisplayAttributeCondition(factor_StateofCharge,soc_val, soc_check);
  	   return (1);
   }
   else
@@ -101,13 +100,13 @@ bool BMS_StateOfChargeOutofRange(float soc_value)
 {
   if (soc_value<MINSOC)
   {
-	  //DisplayAttributeCondition(factor_StateofCharge,soc_value, 0);
+	  DisplayAttributeCondition(factor_StateofCharge,soc_value, 0);
 	  return 0;
   }
 if (soc_value>=MAXSOC)
 {
 	
-	//DisplayAttributeCondition(factor_StateofCharge,soc_value,4);
+	DisplayAttributeCondition(factor_StateofCharge,soc_value,4);
 	return 0;
 }
 return (0);
@@ -134,7 +133,7 @@ int BMS_StateOfCharge(float soc)
   int temperature_check=  BMS_WarningRanges(temt_deg,MAXTEMP,MINTEMP);
   if (temperature_check>0)
 	{
-	  //DisplayAttributeCondition(factor_temperature,temt_deg,temperature_check);
+	  DisplayAttributeCondition(factor_temperature,temt_deg,temperature_check);
 	  return (1);
 	}
   else
@@ -153,12 +152,12 @@ bool BMS_TemperatureOutofRange(float temp_deg)
  if (temp_deg<MINTEMP)
 	
   {
-	//DisplayAttributeCondition(factor_temperature,temp_deg,0);
+	DisplayAttributeCondition(factor_temperature,temp_deg,0);
 	return 0;
   }
   if (temp_deg>=MAXTEMP)
   {
-	//DisplayAttributeCondition(factor_temperature,temp_deg,4);
+	DisplayAttributeCondition(factor_temperature,temp_deg,4);
 	return 0;
   }
 return (0);
@@ -179,17 +178,16 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(float value, int array)
+void DisplayAttributeCondition(int attribute, float value, int array)
 {
-	//float testvalue=5;
-	printf("%f inside display function\n",value);
+
 	if (language==German)
 	{
-		printf("%s ist  und %f\n",  DisplayinGerman[array],value);
+		printf("%s ist %f  und %s\n", attribute,value, DisplayinGerman[array],);
 	}
 	else
 	{
-		//printf("%s is %f and %s \n",  6, DisplayinEnglish[array]);
+		printf("%s is %f and %s \n", attribute,value, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
@@ -220,7 +218,6 @@ void BMS_DisplayBMSCondition(int condition)
 int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
 {
   int status;
-     //printf("%f",ChargeRate_Value);
      status =  (BMS_ChargeRateCheck(ChargeRate_Value)) & (BMS_StateOfCharge(StateofCharge_Value)) & (BMS_TemperatureCheck(Temperature_Value));
      BMS_DisplayBMSCondition(status);
      return (status);
@@ -233,7 +230,6 @@ int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Tempera
  *********************************************************************************/
 
 int main() {
-	//void DisplayAttributeCondition(  float value, int array);
   language=German;
   assert(batteryIsOk(0.4, 70, 30));
   assert(!batteryIsOk(0,85,45));
