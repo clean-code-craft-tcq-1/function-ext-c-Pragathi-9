@@ -176,7 +176,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(attribute, float value, int array)
+void DisplayAttributeCondition(int attribute, float value, int array)
 {
 	if (language==German)
 	{
