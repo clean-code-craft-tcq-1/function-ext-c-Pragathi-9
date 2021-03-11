@@ -146,7 +146,7 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
 {
   if (temperature_deg<MINTEMP)
   {
-	DisplayAttributeCondition(factor_temperature,temperature_deg,0);
+	DisplayAttributeCondition(factor_temperature,23,0);
 	return 0;
   }
   if (temperature_deg>=MAXTEMP)
