@@ -144,7 +144,8 @@ int BMS_StateOfCharge(float soc)
  *********************************************************************************/			      
 bool BMS_TemperatureOutofRange(float temperature_deg)
 {
-  if (temperature_deg<MINTEMP)
+ // if (temperature_deg<MINTEMP)
+	if(1)
   {
 	DisplayAttributeCondition(factor_temperature,23,0);
 	return 0;
