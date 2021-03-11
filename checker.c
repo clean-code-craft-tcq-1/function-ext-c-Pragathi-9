@@ -48,7 +48,7 @@ int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
 	int ArrayIndex=0;
 	int range[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
 	 int numberofrange = ((sizeof(range))/(sizeof(range[0])));
-	for (int index=0; index<numberofrange; index++)
+	for (int index=0; index<(numberofrange-1); index++)
 	{
 			if (BMS_RangeCheck(parameter, range[index+1],range[index]))
 			{
@@ -72,6 +72,7 @@ int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
 bool BMS_StateOfChargeInRange(float soc)
 {
   int soc_check=  BMS_WarningRangeStages(soc,MAXSOC,MINSOC);
+  if (soc_check
   printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[soc_check]);
   return ((soc>0)?1:0);
   
