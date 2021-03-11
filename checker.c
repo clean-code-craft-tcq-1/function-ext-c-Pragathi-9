@@ -24,10 +24,10 @@ int BMS_ChargeRateCheck(float charge_rate)
 	int chargerate_check = (charge_rate > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {
-		printf("Charge Rate is %f and is out of range!\n", charge_rate);
+		DisplayAttributeCondition(Chargerate,charge_rate, 4);
 		return 0;
 	   }
-	printf("Charge Rate is %f within the maximum threshold\n", charge_rate);  
+	DisplayAttributeCondition(Chargerate,charge_rate, 2);  
 	return 1;
 }
 /********************************************************************************
@@ -75,7 +75,7 @@ bool BMS_StateOfChargeInRange(float soc)
   int soc_check=  BMS_WarningRanges(soc,MAXSOC,MINSOC);
   if (soc_check>0)
   {
-	   DisplayStateofChargeCondition(soc, soc_check);
+	   DisplayAttributeCondition(StateofCharge,soc, soc_check);
  	   return (1);
   }
   else
@@ -95,13 +95,13 @@ bool BMS_StateOfChargeOutofRange(float soc)
 {
   if (soc<MINSOC)
   {
-	  DisplayStateofChargeCondition(soc, 0);
+	  DisplayAttributeCondition(StateofCharge,soc, 0);
 	  return 0;
   }
 if (soc>=MAXSOC)
 {
 	
-	DisplayStateofChargeCondition(soc,4);
+	DisplayAttributeCondition(StateofCharge,soc,4);
 	return 0;
 }
 return (0);
@@ -117,20 +117,7 @@ int BMS_StateOfCharge(float soc)
 	bool InRangeStatus=BMS_StateOfChargeInRange(soc);
 	return (OutofRangestatus||InRangeStatus);
 }
-/********************************************************************************
- * Process: Display the battery SoC condtion
- *********************************************************************************/
-void DisplayStateofChargeCondition(float soc, int array)
-{
-	if (language==German)
-	{
-		printf("BMS State-of-Charge is %f, and %s\n", soc, StateofChargeinGerman[array]);
-	}
-	else
-	{
-		printf("BMS State-of-Charg is %f, and %s \n", soc, StateofChargeinEnglish[array]);
-	}
-}
+
 /********************************************************************************
  * A function that gives Safe operating temperature during the charging of a Battery.
  * input: Temperature in degrees
@@ -141,7 +128,7 @@ void DisplayStateofChargeCondition(float soc, int array)
   int temperature_check=  BMS_WarningRanges(temperature_deg,MAXTEMP,MINTEMP);
   if (temperature_check>0)
 	{
-	  DisplayTemperatureCondition(temperature_deg,temperature_check);
+	  DisplayAttributeCondition(temperature,temperature_deg,temperature_check);
 	  return (1);
 	}
   else
@@ -159,12 +146,12 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
 {
   if (temperature_deg<MINTEMP)
   {
-	DisplayTemperatureCondition(temperature_deg,0);
+	DisplayAttributeCondition(temperature,temperature_deg,0);
 	return 0;
   }
   if (temperature_deg>=MAXTEMP)
   {
-	DisplayTemperatureCondition(temperature_deg,4);
+	DisplayAttributeCondition(temperature,temperature_deg,4);
 	return 0;
   }
 return (0);
@@ -185,15 +172,15 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayTemperatureCondition(float temperature_deg, int statusarray)
+void DisplayAttributeCondition(enum factor attribute, float attribute_value, int array)
 {
 	if (language==German)
 	{
-		printf("BMS Temperatur is %f, and %s\n",   temperature_deg, TemperatureStatusGerman[statusarray]);
+		printf("%s ist %f, und %s\n", BMSattribute[attribute], attribute_value, DisplayinGerman[array]);
 	}
 	else
 	{
-		printf("BMS Temperature is %f, and %s \n", temperature_deg, TemperatureStatusEnglish[statusarray]);
+		printf("%s is %f, and %s \n", BMSattribute[attribute], attribute_value, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
