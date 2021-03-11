@@ -176,11 +176,11 @@ void DisplayAttributeCondition(enum factor attribute, float attribute_value, int
 {
 	if (language==German)
 	{
-		printf("%s ist %f, und %s\n", BMSattribute[attribute], attribute_value, DisplayinGerman[array]);
+		printf("%s ist %f, und %s\n", BMSattributeGerman[attribute], attribute_value, DisplayinGerman[array]);
 	}
 	else
 	{
-		printf("%s is %f, and %s \n", BMSattribute[attribute], attribute_value, DisplayinEnglish[array]);
+		printf("%s is %f, and %s \n", BMSattributeEnglish[attribute], attribute_value, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
@@ -192,12 +192,12 @@ void BMS_DisplayBMSCondition(int condition)
   if (condition)
   {
     
-    printf("%s",BMSGoodStatus[array]);
+    printf("%s \n",BMSGoodStatus[array]);
   
   }
   else
   {
-   printf("%s",BMSPoorStatus[array]);
+   printf("%s \n",BMSPoorStatus[array]);
   }
 }
 
