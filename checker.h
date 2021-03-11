@@ -48,4 +48,4 @@ const char* BMSPoorStatus[]={
 /****************************************************************************
 Function declaration
 /***************************************************************************/
-int batteryIsOk(static float ChargeRate, float stateofcharge, float temperature);
+int batteryIsOk( float ChargeRate, float stateofcharge, float temperature);
