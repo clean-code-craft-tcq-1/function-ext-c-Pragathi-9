@@ -19,15 +19,15 @@ float tolerance (float upperlimit)
  * input: Current charge rate in decimal (percentage converted to floating value)
  * returns: Check if the charge rate is out of boundary conditions
  *********************************************************************************/
-int BMS_ChargeRateCheck(float charge_rate)
+int BMS_ChargeRateCheck(float chargerate_val)
 {
 	int chargerate_check = (charge_rate > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {
-		DisplayAttributeCondition(factor_Chargerate,charge_rate, 4);
+		DisplayAttributeCondition(factor_Chargerate,chargerate_val, 4);
 		return 0;
 	   }
-	DisplayAttributeCondition(factor_Chargerate,charge_rate, 2);  
+	DisplayAttributeCondition(factor_Chargerate,chargerate_val, 2);  
 	return 1;
 }
 /********************************************************************************
@@ -70,12 +70,12 @@ int BMS_WarningRanges(float parameter, float maxrange, float minrange)
  * returns: Check if the SOC is inside boundary conditions, display the warnings or normal range messages
  *********************************************************************************/
  
-bool BMS_StateOfChargeInRange(float soc)
+bool BMS_StateOfChargeInRange(float soc_val)
 {
-  int soc_check=  BMS_WarningRanges(soc,MAXSOC,MINSOC);
+  int soc_check=  BMS_WarningRanges(soc_val,MAXSOC,MINSOC);
   if (soc_check>0)
   {
-	   DisplayAttributeCondition(factor_StateofCharge,soc, soc_check);
+	   DisplayAttributeCondition(factor_StateofCharge,soc_val, soc_check);
  	   return (1);
   }
   else
@@ -91,17 +91,17 @@ bool BMS_StateOfChargeInRange(float soc)
  * input: SOC in percentage
  * returns: Check if the SOC is out of boundary conditions
  *********************************************************************************/			      
-bool BMS_StateOfChargeOutofRange(float soc)
+bool BMS_StateOfChargeOutofRange(float soc_value)
 {
-  if (soc<MINSOC)
+  if (soc_value<MINSOC)
   {
 	  DisplayAttributeCondition(factor_StateofCharge,soc, 0);
 	  return 0;
   }
-if (soc>=MAXSOC)
+if (soc_value>=MAXSOC)
 {
 	
-	DisplayAttributeCondition(factor_StateofCharge,soc,4);
+	DisplayAttributeCondition(factor_StateofCharge,soc_value,4);
 	return 0;
 }
 return (0);
@@ -123,12 +123,12 @@ int BMS_StateOfCharge(float soc)
  * input: Temperature in degrees
  * returns: Check if the Temperature is within boundary conditions
  *********************************************************************************/
- bool BMS_TemperatureInRange(float temperature_deg)
+ bool BMS_TemperatureInRange(float temt_deg)
 {
-  int temperature_check=  BMS_WarningRanges(temperature_deg,MAXTEMP,MINTEMP);
+  int temperature_check=  BMS_WarningRanges(temt_deg,MAXTEMP,MINTEMP);
   if (temperature_check>0)
 	{
-	  DisplayAttributeCondition(factor_temperature,temperature_deg,temperature_check);
+	  DisplayAttributeCondition(factor_temperature,temt_deg,temperature_check);
 	  return (1);
 	}
   else
@@ -142,17 +142,17 @@ int BMS_StateOfCharge(float soc)
  * input: Temperature in degrees
  * returns: Check if the Temperature is out of boundary conditions
  *********************************************************************************/			      
-bool BMS_TemperatureOutofRange(float temperature_deg)
+bool BMS_TemperatureOutofRange(float temp_deg)
 {
- // if (temperature_deg<MINTEMP)
-	if(1)
+ if (temp_deg<MINTEMP)
+	
   {
-	DisplayAttributeCondition(factor_temperature,23,0);
+	DisplayAttributeCondition(factor_temperature,temp_deg,0);
 	return 0;
   }
-  if (temperature_deg>=MAXTEMP)
+  if (temp_deg>=MAXTEMP)
   {
-	DisplayAttributeCondition(factor_temperature,temperature_deg,4);
+	DisplayAttributeCondition(factor_temperature,temp_deg,4);
 	return 0;
   }
 return (0);
