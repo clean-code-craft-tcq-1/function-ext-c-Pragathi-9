@@ -23,7 +23,7 @@ int BMS_ChargeRateCheck(float chargerate_val)
 {	printf("%f test in chargerate function \n", chargerate_val);
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
 	 if(chargerate_check)
-		 float chargerate_val=9.6;
+		 chargerate_val=9.6;
 	   {	printf("%f test in chargerate function if loop\n", chargerate_val);
 		DisplayAttributeCondition(chargerate_val, 4);
 		return 0;
