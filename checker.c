@@ -122,7 +122,7 @@ int BMS_StateOfCharge(float soc)
  *********************************************************************************/
 void DisplayStateofChargeCondition(float soc, int array)
 {
-	if (language=="German")
+	if (language==German)
 	{
 		printf("BMS State-of-Charge is %f, and %s\n", soc, StateofChargeinGerman[array]);
 	}
@@ -187,7 +187,7 @@ int BMS_TemperatureCheck(float temperature_deg)
  *********************************************************************************/
 void DisplayTemperatureCondition(float temperature_deg, int statusarray)
 {
-	if (language=="German")
+	if (language==German)
 	{
 		printf("BMS Temperatur is %f, and %s\n",   temperature_deg, TemperatureStatusGerman[statusarray]);
 	}
@@ -201,7 +201,7 @@ void DisplayTemperatureCondition(float temperature_deg, int statusarray)
  *********************************************************************************/
 void BMS_DisplayBMSCondition(int condition)
 {
-  int array= ((language=='German')? 0:1);
+  int array= ((language==German)? 0:1);
   if (condition)
   {
     
@@ -236,10 +236,10 @@ int batteryIsOk(float ChargeRate, float stateofcharge, float temperature)
  *********************************************************************************/
 
 int main() {
-  language="German";
+  language=German;
   assert(batteryIsOk(0.4, 70, 30));
   assert(!batteryIsOk(0,85,50));
-  language="English";
+  language=English;
   assert(batteryIsOk(0.3, 25, 25));
   assert(!batteryIsOk(0.6,50,30));
   assert(!batteryIsOk(0.2,50,60));
