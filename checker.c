@@ -184,11 +184,12 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayTemperatureCondition(int factorarray, float temperature_deg, int statusarray)
+void DisplayTemperatureCondition(float temperature_deg, int statusarray)
 {
 	if (language=="German")
 	{
 		printf("BMS Temperatur is %f, and %s\n",   temperature_deg, TemperatureStatusGerman[statusarray]);
+	}
 	else
 	{
 		printf("BMS Temperature is %f, and %s \n", temperature_deg, TemperatureStatusEnglish[statusarray]);
