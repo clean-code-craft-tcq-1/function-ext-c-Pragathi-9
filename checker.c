@@ -24,10 +24,10 @@ int BMS_ChargeRateCheck(float charge_rate)
 	int chargerate_check = (charge_rate > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {
-		DisplayAttributeCondition(Chargerate,charge_rate, 4);
+		DisplayAttributeCondition(factor_Chargerate,charge_rate, 4);
 		return 0;
 	   }
-	DisplayAttributeCondition(Chargerate,charge_rate, 2);  
+	DisplayAttributeCondition(factor_Chargerate,charge_rate, 2);  
 	return 1;
 }
 /********************************************************************************
@@ -75,7 +75,7 @@ bool BMS_StateOfChargeInRange(float soc)
   int soc_check=  BMS_WarningRanges(soc,MAXSOC,MINSOC);
   if (soc_check>0)
   {
-	   DisplayAttributeCondition(StateofCharge,soc, soc_check);
+	   DisplayAttributeCondition(factor_StateofCharge,soc, soc_check);
  	   return (1);
   }
   else
@@ -95,13 +95,13 @@ bool BMS_StateOfChargeOutofRange(float soc)
 {
   if (soc<MINSOC)
   {
-	  DisplayAttributeCondition(StateofCharge,soc, 0);
+	  DisplayAttributeCondition(factor_StateofCharge,soc, 0);
 	  return 0;
   }
 if (soc>=MAXSOC)
 {
 	
-	DisplayAttributeCondition(StateofCharge,soc,4);
+	DisplayAttributeCondition(factor_StateofCharge,soc,4);
 	return 0;
 }
 return (0);
@@ -128,7 +128,7 @@ int BMS_StateOfCharge(float soc)
   int temperature_check=  BMS_WarningRanges(temperature_deg,MAXTEMP,MINTEMP);
   if (temperature_check>0)
 	{
-	  DisplayAttributeCondition(temperature,temperature_deg,temperature_check);
+	  DisplayAttributeCondition(factor_temperature,temperature_deg,temperature_check);
 	  return (1);
 	}
   else
@@ -146,12 +146,12 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
 {
   if (temperature_deg<MINTEMP)
   {
-	DisplayAttributeCondition(temperature,temperature_deg,0);
+	DisplayAttributeCondition(factor_temperature,temperature_deg,0);
 	return 0;
   }
   if (temperature_deg>=MAXTEMP)
   {
-	DisplayAttributeCondition(temperature,temperature_deg,4);
+	DisplayAttributeCondition(factor_temperature,temperature_deg,4);
 	return 0;
   }
 return (0);
