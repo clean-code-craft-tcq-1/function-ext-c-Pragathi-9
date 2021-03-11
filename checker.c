@@ -208,10 +208,10 @@ void BMS_DisplayBMSCondition(int condition)
  * returns: True is the factors meet the requirement
  *********************************************************************************/
  
-int batteryIsOk(float ChargeRate, float stateofcharge, float temperature) 
+int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
 {
   int status;
-     status =  (BMS_ChargeRateCheck(ChargeRate)) & (BMS_StateOfCharge(stateofcharge)) & (BMS_TemperatureCheck(temperature));
+     status =  (BMS_ChargeRateCheck(ChargeRate_Value)) & (BMS_StateOfCharge(StateofCharge_Value)) & (BMS_TemperatureCheck(Temperature_Value));
      BMS_DisplayBMSCondition(status);
      return (status);
 }
