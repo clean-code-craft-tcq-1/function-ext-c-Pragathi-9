@@ -32,25 +32,29 @@ int BMS_ChargeRateCheck(float charge_rate)
 }
 /********************************************************************************
  * A common function that checks the range of parameters.
- * input: parameter, aximum and minimum range to be checked
+ * input: parameter, Maximum and minimum range to be checked
  * returns: Check if the parameter is out of the given maximum and minimum range
  *********************************************************************************/
 bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
 {
 	return((parameter >= minlimit) && (parameter < maxlimit));
 }
-
-int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
+/********************************************************************************
+ * A common function that checks the warning for breach, low and normal ranges.
+ * input: parameter, Maximum and minimum thresholds range to be checked
+ * returns: Check if the parameter falls in normal or any warnings range
+ *********************************************************************************/
+int BMS_WarningRanges(float parameter, float maxrange, float minrange)
 {
 	
 	float lowwarninglimit = (minrange + tolerance(maxrange));
 	float highwaninglimit=  (maxrange - tolerance(maxrange));
 	int ArrayIndex=0;
-	int range[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
-	 int numberofrange = ((sizeof(range))/(sizeof(range[0])));
+	int ranges[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
+	 int numberofrange = ((sizeof(ranges))/(sizeof(ranges[0])));
 	for (int index=0; index<(numberofrange-1); index++)
 	{
-			if (BMS_RangeCheck(parameter, range[index+1],range[index]))
+			if (BMS_RangeCheck(parameter, ranges[index+1],ranges[index]))
 			{
 				ArrayIndex= index+1;
 			}
@@ -61,17 +65,14 @@ int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
 	 
 
 /********************************************************************************
- * A function that gives State-of-Charge parameter check of a Battery management system.
- * if the current SOC is outside the boundary conditions, then the battery is unacceptable.
- * if the SOC exceeds the 80% threshold, that reduces the life span of the battery, and losses are incurred
- * Battery is charged above 80% only in outstation charging system.
+ * A function that gives State-of-Charge parameter within boundary check of a Battery management system.
  * input: SOC in percentage
- * returns: Check if the SOC is out of boundary conditions
+ * returns: Check if the SOC is inside boundary conditions, display the warnings or normal range messages
  *********************************************************************************/
  
 bool BMS_StateOfChargeInRange(float soc)
 {
-  int soc_check=  BMS_WarningRangeStages(soc,MAXSOC,MINSOC);
+  int soc_check=  BMS_WarningRanges(soc,MAXSOC,MINSOC);
   if (soc_check>0)
   {
   printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[soc_check]);
@@ -82,7 +83,14 @@ bool BMS_StateOfChargeInRange(float soc)
 	return 0;
   }
 }
-			      
+/********************************************************************************
+ * A function that gives State-of-Charge parameter outside boundary check of a Battery management system.
+ * if the current SOC is outside the boundary conditions, then the battery is unacceptable.
+ * if the SOC exceeds the 80% threshold, that reduces the life span of the battery, and losses are incurred
+ * Battery is charged above 80% only in outstation charging system.
+ * input: SOC in percentage
+ * returns: Check if the SOC is out of boundary conditions
+ *********************************************************************************/			      
 bool BMS_StateOfChargeOutofRange(float soc)
 {
   if (soc<MINSOC)
@@ -97,7 +105,11 @@ if (soc>=MAXSOC)
 }
 return (0);
 }
-			      
+/********************************************************************************
+ * A function that gives State-of-Charge parameter boundary check of a Battery management system.
+ * input: SOC in percentage
+ * returns: Check if the SOC is inside/outside boundary conditions. Return 1 if its within range.
+ *********************************************************************************/			      
 int BMS_StateOfCharge(float soc)
 {
 	bool OutofRangestatus= BMS_StateOfChargeOutofRange(soc);
@@ -106,13 +118,12 @@ int BMS_StateOfCharge(float soc)
 }
 /********************************************************************************
  * A function that gives Safe operating temperature during the charging of a Battery.
- * There could be loss of charge if the temperature is beyond the boundary conditions
  * input: Temperature in degrees
- * returns: Check if the Temperature is out of boundary conditions
+ * returns: Check if the Temperature is within boundary conditions
  *********************************************************************************/
  bool BMS_TemperatureInRange(float temperature_deg)
 {
-  int temperature_check=  BMS_WarningRangeStages(temperature_deg,MAXTEMP,MINTEMP);
+  int temperature_check=  BMS_WarningRanges(temperature_deg,MAXTEMP,MINTEMP);
   if (temperature_check>0)
 	{
 	  printf("BMS temperature is %f percent, and %s \n", temperature_deg, TemperatureStatus[temperature_check]);
@@ -123,7 +134,12 @@ int BMS_StateOfCharge(float soc)
 	  return 0; 
 	}
 }
-			      
+/********************************************************************************
+ * A function that gives Safe operating temperature during the charging of a Battery.
+ * There could be loss of charge if the temperature is beyond the boundary conditions
+ * input: Temperature in degrees
+ * returns: Check if the Temperature is out of boundary conditions
+ *********************************************************************************/			      
 bool BMS_TemperatureOutofRange(float temperature_deg)
 {
   if (temperature_deg<MINTEMP)
@@ -138,6 +154,12 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
   }
 return (0);
 }
+/********************************************************************************
+ * A function that gives Safe operating temperature during the charging of a Battery.
+ * There could be loss of charge if the temperature is beyond the boundary conditions
+ * input: Temperature in degrees
+ * returns: Check if the Temperature is out/within of boundary conditions
+ *********************************************************************************/
 int BMS_TemperatureCheck(float temperature_deg)
 {
         bool OutofRangeTemperatureStatus= BMS_TemperatureOutofRange(temperature_deg);
