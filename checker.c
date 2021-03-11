@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "checker.h"
 
-
+enum factor attribute;
 /******************************************************************************/
 
 float tolerance (float upperlimit)
@@ -176,7 +176,7 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(enum factor attribute, float value, int array)
+void DisplayAttributeCondition(attribute, float value, int array)
 {
 	if (language==German)
 	{
