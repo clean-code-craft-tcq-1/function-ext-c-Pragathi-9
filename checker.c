@@ -178,16 +178,16 @@ int BMS_TemperatureCheck(float temperature_deg)
 /********************************************************************************
  * Process: Display the battery temperature condtion
  *********************************************************************************/
-void DisplayAttributeCondition(enum factor attribute, float value, int array)
+void DisplayAttributeCondition(int attribute, float value, int array)
 {
 
 	if (language==German)
 	{
-		printf("%s ist %f  und %s\n", attribute,value, DisplayinGerman[array]);
+		printf("%s ist %f  und %s\n", BMSattributeGerman[attribute],value, DisplayinGerman[array]);
 	}
 	else
 	{
-		printf("%s is %f and %s \n", attribute,value, DisplayinEnglish[array]);
+		printf("%s is %f and %s \n", BMSattributeEnglish[attribute],value, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
