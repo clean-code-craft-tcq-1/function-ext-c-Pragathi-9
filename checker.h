@@ -12,7 +12,7 @@
 #define MAXSOC 80.0
 #define MINSOC 20.0
 
-
+char language="German";
 const char* StateofChargeinGerman[] = {
 " Warnung: Der Ladezustand ist niedrig", 
 "Warnung: Ladezustand niedrig",
