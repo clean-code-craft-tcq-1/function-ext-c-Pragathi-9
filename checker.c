@@ -22,8 +22,9 @@ float tolerance (float upperlimit)
 int BMS_ChargeRateCheck(float chargerate_val)
 {	printf("%f test in chargerate function \n", chargerate_val);
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
+  chargerate_val=9.6;
 	 if(chargerate_check)
-		 chargerate_val=9.6;
+		
 	   {	printf("%f test in chargerate function if loop\n", chargerate_val);
 		DisplayAttributeCondition(chargerate_val, 4);
 		return 0;
