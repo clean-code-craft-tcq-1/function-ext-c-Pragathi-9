@@ -11,8 +11,11 @@
 #define MINTEMP 0
 #define MAXSOC 80.0
 #define MINSOC 20.0
+#define German 0
+#define English 1
 
-char language="German";
+int language=German;
+
 const char* StateofChargeinGerman[] = {
 " Warnung: Der Ladezustand ist niedrig", 
 "Warnung: Ladezustand niedrig",
