@@ -21,7 +21,7 @@ float tolerance (float upperlimit)
  *********************************************************************************/
 int BMS_ChargeRateCheck(float chargerate_val)
 {
-	int chargerate_check = (charge_rate > MAXCHARGERATE);
+	int chargerate_check = (chargerate_val > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {
 		DisplayAttributeCondition(factor_Chargerate,chargerate_val, 4);
@@ -95,7 +95,7 @@ bool BMS_StateOfChargeOutofRange(float soc_value)
 {
   if (soc_value<MINSOC)
   {
-	  DisplayAttributeCondition(factor_StateofCharge,soc, 0);
+	  DisplayAttributeCondition(factor_StateofCharge,soc_value, 0);
 	  return 0;
   }
 if (soc_value>=MAXSOC)
