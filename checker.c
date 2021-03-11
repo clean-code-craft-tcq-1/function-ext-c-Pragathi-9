@@ -178,14 +178,14 @@ int BMS_TemperatureCheck(float temperature_deg)
  *********************************************************************************/
 void DisplayAttributeCondition(int attribute, float value, int array)
 {
-	int testvalue=5;
+	float testvalue=5;
 	if (language==German)
 	{
-		printf("%s ist %d und %s\n", BMSattributeGerman[attribute], testvalue, DisplayinGerman[array]);
+		printf("%s ist %f und %s\n", BMSattributeGerman[attribute], testvalue, DisplayinGerman[array]);
 	}
 	else
 	{
-		printf("%s is %d and %s \n", BMSattributeEnglish[attribute], 6, DisplayinEnglish[array]);
+		printf("%s is %f and %s \n", BMSattributeEnglish[attribute], 6, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
