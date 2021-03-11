@@ -16,7 +16,7 @@
 
 int language=German;
 
-enum factor {Chargerate, StateofCharge, temperature};
+enum factor {factor_Chargerate, factor_StateofCharge, factor_temperature};
 
 const char* BMSattributeEnglish[]= {"Charge-rate", "State-of-Charge", "Temperature"};
 const char* BMSattributeGerman[]= {"Laderate "," Ladezustand "," Temperatur "};
