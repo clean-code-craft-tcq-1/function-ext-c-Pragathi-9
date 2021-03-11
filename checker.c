@@ -185,7 +185,7 @@ void DisplayAttributeCondition(int attribute, float value, int array)
 	}
 	else
 	{
-		printf("%s is %f and %s \n", BMSattributeEnglish[attribute], 6, DisplayinEnglish[array]);
+		//printf("%s is %f and %s \n", BMSattributeEnglish[attribute], 6, DisplayinEnglish[array]);
 	}
 }
 /********************************************************************************
