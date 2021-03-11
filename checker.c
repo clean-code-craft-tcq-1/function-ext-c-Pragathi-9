@@ -47,7 +47,7 @@ int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
 	float highwaninglimit=  (maxrange - tolerance(maxrange));
 	int index=0;
 	int range[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
-	 int numberofrange = (sizeof(range[])/sizeof(range[0]);
+	 int numberofrange = ((sizeof(range))/(sizeof(range[0])));
 	for (index=0; index<numberofrange; index++)
 	{
 			if (BMS_RangeCheck(parameter, range[index+1],range[index]))
@@ -92,7 +92,7 @@ if (soc>MAXSOC)
 return (0);
 }
 			      
-bool BMS_StateOfCharge(float soc)
+int BMS_StateOfCharge(float soc)
 {
 	bool OutofRangestatus= BMS_StateOfChargeOutofRange(soc);
 	bool InRangeStatus=BMS_StateOfChargeInRange(soc);
@@ -104,19 +104,33 @@ bool BMS_StateOfCharge(float soc)
  * input: Temperature in degrees
  * returns: Check if the Temperature is out of boundary conditions
  *********************************************************************************/
- 
+ bool BMS_TemperatureInRange(float temperature_deg)
+{
+  int temperature_check=  BMS_WarningRangeStages(temperature_deg,MAXSOC,MINSOC);
+  printf("State of Charge is %f percent, and %s \n", soc, TemperatureStatus[temperature_check]);
+  return 1;
+  
+}
+			      
+bool BMS_TemperatureOutofRange(float temperature_deg)
+{
+  if (temperature_deg<MINTEMP)
+  {
+	printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[0]);
+	return 0;
+  }
+  if (temperature_deg>MAXTEMP)
+  {
+	printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[4]);
+	return 0;
+  }
+return (0);
+}
 int BMS_TemperatureCheck(float temperature_deg)
 {
-  int temperature_check= BMS_WarningRangeStages(temperature_deg,MAXTEMP,MINTEMP);
-  printf("Temperature is %f and  %s\n", temperature_deg, TemperatureStatus[temperature_check]);
-  if((temperature_check==0)|| (temperature_check==4))
-  {
-    return 0;
-  } 
-  else
-  {
-    return 1;
-  }
+        bool OutofRangeTemperatureStatus= BMS_TemperatureOutofRange(temperature_deg);
+	bool InRangeTemperatureStatus= BMS_TemperatureInRange(temperature_deg);
+	return (OutofRangeTemperatureStatus||InRangeTemperatureStatus);
   
 }
 
