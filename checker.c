@@ -107,7 +107,7 @@ int BMS_StateOfCharge(float soc)
  bool BMS_TemperatureInRange(float temperature_deg)
 {
   int temperature_check=  BMS_WarningRangeStages(temperature_deg,MAXSOC,MINSOC);
-  printf("State of Charge is %f percent, and %s \n", soc, TemperatureStatus[temperature_check]);
+  printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[temperature_check]);
   return 1;
   
 }
