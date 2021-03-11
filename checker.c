@@ -20,7 +20,7 @@ float tolerance (float upperlimit)
  * returns: Check if the charge rate is out of boundary conditions
  *********************************************************************************/
 int BMS_ChargeRateCheck(float chargerate_val)
-{
+{	printf("%f test in chargerate function", chargerate_val);
 	int chargerate_check = (chargerate_val > MAXCHARGERATE);
 	 if(chargerate_check)
 	   {
@@ -216,7 +216,7 @@ void BMS_DisplayBMSCondition(int condition)
 int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
 {
   int status;
-     printf("%f",ChargeRate_Value);
+     //printf("%f",ChargeRate_Value);
      status =  (BMS_ChargeRateCheck(ChargeRate_Value)) & (BMS_StateOfCharge(StateofCharge_Value)) & (BMS_TemperatureCheck(Temperature_Value));
      BMS_DisplayBMSCondition(status);
      return (status);
