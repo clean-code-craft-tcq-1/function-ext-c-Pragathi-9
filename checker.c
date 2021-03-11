@@ -120,11 +120,12 @@ int BMS_StateOfCharge(float soc)
 /********************************************************************************
  * Process: Display the battery SoC condtion
  *********************************************************************************/
-void DisplayStateofChargeCondition(float soc, int statusarray)
+void DisplayStateofChargeCondition(float soc, int array)
 {
 	if (language=="German")
 	{
 		printf("BMS State-of-Charge is %f, and %s\n", soc, StateofChargeinGerman[array]);
+	}
 	else
 	{
 		printf("BMS State-of-Charg is %f, and %s \n", soc, StateofChargeinEnglish[array]);
