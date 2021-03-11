@@ -181,7 +181,7 @@ void DisplayAttributeCondition(int attribute, float value, int array)
 	float testvalue=5;
 	if (language==German)
 	{
-		printf("%s ist %f und %s\n", BMSattributeGerman[attribute], testvalue, DisplayinGerman[array]);
+		printf("%s ist %s und %f\n", BMSattributeGerman[attribute], DisplayinGerman[array],testvalue);
 	}
 	else
 	{
