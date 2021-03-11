@@ -39,7 +39,7 @@ bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
 	return((parameter >= minlimit) && (parameter < maxlimit));
 }
 
-int BMS_HighLowWarning(float parameter, float maxrange, float minrange)
+int BMS_RangeStages(float parameter, float maxrange, float minrange)
 {
 	
 	float lowwarninglimit = (minrange + tolerance(maxrange));
