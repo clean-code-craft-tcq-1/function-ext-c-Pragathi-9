@@ -73,7 +73,7 @@ bool BMS_StateOfChargeInRange(float soc)
 {
   int soc_check=  BMS_WarningRangeStages(soc,MAXSOC,MINSOC);
   printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[soc_check]);
-  return 1;
+  return ((soc>0)?1:0);
   
 }
 			      
@@ -84,7 +84,7 @@ bool BMS_StateOfChargeOutofRange(float soc)
 	  printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[0]);
 	  return 0;
   }
-if (soc>MAXSOC)
+if (soc>=MAXSOC)
 {
 	printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[4]);
 	return 0;
@@ -108,7 +108,7 @@ int BMS_StateOfCharge(float soc)
 {
   int temperature_check=  BMS_WarningRangeStages(temperature_deg,MAXSOC,MINSOC);
   printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[temperature_check]);
-  return 1;
+  return ((temperature_check >0)?1:0);
   
 }
 			      
@@ -119,7 +119,7 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
 	printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[0]);
 	return 0;
   }
-  if (temperature_deg>MAXTEMP)
+  if (temperature_deg>=MAXTEMP)
   {
 	printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[4]);
 	return 0;
