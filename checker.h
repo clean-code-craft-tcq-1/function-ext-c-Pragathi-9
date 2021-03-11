@@ -37,7 +37,7 @@ const char* DisplayinEnglish[] = {
 };
 
 const char* BMSGoodStatus[]={
-	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \ n",
+	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n",
 	"The Battery management system is in good condition considering the above factors \n"
 };
 
@@ -47,6 +47,6 @@ const char* BMSPoorStatus[]={
 };
 /****************************************************************************
 Function declaration
-/***************************************************************************/
+/***************************************************************************
 int batteryIsOk( float ChargeRate, float stateofcharge, float temperature);
 void DisplayAttributeCondition(enum factor attribute, float value, int array);
