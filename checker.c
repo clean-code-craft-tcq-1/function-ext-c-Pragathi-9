@@ -112,10 +112,10 @@ int BMS_StateOfCharge(float soc)
  *********************************************************************************/
  bool BMS_TemperatureInRange(float temperature_deg)
 {
-  int temperature_check=  BMS_WarningRangeStages(temperature_deg,MAXSOC,MINSOC);
+  int temperature_check=  BMS_WarningRangeStages(temperature_deg,MAXTEMP,MINTEMP);
   if (temperature_check>0)
 	{
-	  printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[temperature_check]);
+	  printf("BMS temperature is %f percent, and %s \n", temperature_deg, TemperatureStatus[temperature_check]);
 	  return (1);
 	}
   else
@@ -128,12 +128,12 @@ bool BMS_TemperatureOutofRange(float temperature_deg)
 {
   if (temperature_deg<MINTEMP)
   {
-	printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[0]);
+	printf("BMS temperature is %f percent, and %s \n", temperature_deg, TemperatureStatus[0]);
 	return 0;
   }
   if (temperature_deg>=MAXTEMP)
   {
-	printf("State of Charge is %f percent, and %s \n", temperature_deg, TemperatureStatus[4]);
+	printf("BMS temperature is %f percent, and %s \n", temperature_deg, TemperatureStatus[4]);
 	return 0;
   }
 return (0);
@@ -187,6 +187,6 @@ int main() {
   assert(batteryIsOk(0.4, 70, 30));
   assert(!batteryIsOk(0,85,50));
   assert(!batteryIsOk(0.6,50,30));
- // assert(!batteryIsOk(0.2,50,60));
+  assert(!batteryIsOk(0.2,50,60));
 }
 
