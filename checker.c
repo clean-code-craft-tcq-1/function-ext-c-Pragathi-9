@@ -45,18 +45,18 @@ int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
 	
 	float lowwarninglimit = (minrange + tolerance(maxrange));
 	float highwaninglimit=  (maxrange - tolerance(maxrange));
-	int index=0;
+	int ArrayIndex=0;
 	int range[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
 	 int numberofrange = ((sizeof(range))/(sizeof(range[0])));
-	for (index=0; index<numberofrange; index++)
+	for (int index=0; index<numberofrange; index++)
 	{
 			if (BMS_RangeCheck(parameter, range[index+1],range[index]))
 			{
-				return (index+1);
+				ArrayIndex= index+1;
 			}
 	}
 	 
- return (index);
+ return (ArrayIndex);
 }
 	 
 
