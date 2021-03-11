@@ -27,8 +27,11 @@ int BMS_ChargeRateCheck(float chargerate_val)
 		DisplayAttributeCondition(factor_Chargerate,chargerate_val, 4);
 		return 0;
 	   }
+	else
+	{
 	DisplayAttributeCondition(factor_Chargerate,chargerate_val, 2);  
 	return 1;
+	}
 }
 /********************************************************************************
  * A common function that checks the range of parameters.
