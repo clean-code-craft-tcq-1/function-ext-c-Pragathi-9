@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "checker.h"
 
+
 /******************************************************************************/
 
 float tolerance (float upperlimit)
@@ -39,33 +40,21 @@ bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
 	return((parameter >= minlimit) && (parameter < maxlimit));
 }
 
-int BMS_RangeStages(float parameter, float maxrange, float minrange)
+int BMS_WarningRangeStages(float parameter, float maxrange, float minrange)
 {
 	
 	float lowwarninglimit = (minrange + tolerance(maxrange));
 	float highwaninglimit=  (maxrange - tolerance(maxrange));
 	int index=0;
-	if (BMS_RangeCheck(parameter, lowwarninglimit,minrange))
-	   {
-	   	index=1;
-		return(index);
-	   }
-	
-        if (BMS_RangeCheck(parameter, highwaninglimit,lowwarninglimit))
-	   {
-		index=2;
-		return(index);
-	   }
-	
-	if(BMS_RangeCheck(parameter, maxrange,highwaninglimit))
-	   {
-		index=3;
-		return(index);
-	   }
-	 else
-	 {
-		 index= (parameter >= maxrange)? 4:0;
-	 }
+	int range[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
+	 int numberofrange = (sizeof(range[])/sizeof(range[0]);
+	for (index=0; index<numberofrange; index++)
+	{
+			if (BMS_RangeCheck(parameter, range[index+1],range[index]))
+			{
+				return (index+1);
+			}
+	}
 	 
  return (index);
 }
@@ -80,21 +69,35 @@ int BMS_RangeStages(float parameter, float maxrange, float minrange)
  * returns: Check if the SOC is out of boundary conditions
  *********************************************************************************/
  
-int BMS_StateOfCharge(float soc)
+bool BMS_StateOfChargeInRange(float soc)
 {
-  int soc_check=  BMS_RangeStages(soc,MAXSOC,MINSOC);
+  int soc_check=  BMS_WarningRangeStages(soc,MAXSOC,MINSOC);
   printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[soc_check]);
-  if ((soc_check==0)|| (soc==4))
-  { 
-    return 0;
-  }
-  else
-  {
-    return 1;
-  }
+  return 1;
   
 }
-
+			      
+bool BMS_StateOfChargeOutofRange(float soc)
+{
+  if (soc<MINSOC)
+  {
+	  printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[0]);
+	  return 0;
+  }
+if (soc>MAXSOC)
+{
+	printf("State of Charge is %f percent, and %s \n", soc, StateofCharge[4]);
+	return 0;
+}
+return (0);
+}
+			      
+bool BMS_StateOfCharge(float soc)
+{
+	bool OutofRangestatus= BMS_StateOfChargeOutofRange(soc);
+	bool InRangeStatus=BMS_StateOfChargeInRange(soc);
+	return (OutofRangestatus||InRangeStatus);
+}
 /********************************************************************************
  * A function that gives Safe operating temperature during the charging of a Battery.
  * There could be loss of charge if the temperature is beyond the boundary conditions
@@ -104,7 +107,7 @@ int BMS_StateOfCharge(float soc)
  
 int BMS_TemperatureCheck(float temperature_deg)
 {
-  int temperature_check= BMS_RangeStages(temperature_deg,MAXTEMP,MINTEMP);
+  int temperature_check= BMS_WarningRangeStages(temperature_deg,MAXTEMP,MINTEMP);
   printf("Temperature is %f and  %s\n", temperature_deg, TemperatureStatus[temperature_check]);
   if((temperature_check==0)|| (temperature_check==4))
   {
