@@ -64,4 +64,4 @@ const char* DisplayStatus[][2]={
 Function declaration
 ***************************************************************************/
 void BatteryReport();
-int Accumulator(int numberOfBatteriesfloat, int numberOfParameters, array[][numberOfParameters],  bool resultant[]);
+int Accumulator(int numberOfBatteries, int numberOfParameters, float array[][numberOfParameters],  bool resultant[]);
