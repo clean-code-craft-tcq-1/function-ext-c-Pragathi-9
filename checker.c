@@ -77,19 +77,19 @@ int main()
 { 
     
     language=English;
-    float array[3][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
-    bool resultant[3]={1,0,1};
+    float array[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
+    bool resultant[]={1,0,1};
     assert((Accumulator(array,resultant)));
     BatteryReport();
     
     language=German;
-    float array_2[4][NumberOfParameters] = {
+    float array_2[][NumberOfParameters] = {
 	    {50, 0.4, 60}, 
 	    {10, 0.6,25}, 
 	    {20, 0.25, 50},
 	    {5,0.49,10}
     }; 
-    bool resultant_2[4]= {0,0,1,0};
+    bool resultant_2[]= {0,0,1,0};
     assert((Accumulator(array_2,resultant_2)));
     BatteryReport();
     return 0; 
