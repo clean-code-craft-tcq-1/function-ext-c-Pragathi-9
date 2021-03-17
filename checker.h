@@ -25,7 +25,7 @@ enum BatteryParameters{
 
 
 
-#define NumberOfBatteries 3
+#define NumberOfBatteries 10
 #define NumberOfParameters 3
 
 float maximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
