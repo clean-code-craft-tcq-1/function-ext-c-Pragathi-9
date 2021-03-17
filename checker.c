@@ -16,22 +16,19 @@
 
 bool BMS_BreachRanges(float parameter, int index)
 
-{	
+{	bool inrage=true;
 	if ((parameter< (minimumthreshold[index]))||(parameter>= (maximumthreshold[index])))
 	  {		
-		  return 0;
+		  return (inrange=false);
 	  }
-	else
-	{
-		return 1;
-	}
+	return(inrange);
 }
 
 
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[NumberOfBatteries])
 {
 	int flag=1;
-	int final_status=1
+	int final_status=1;
 	struct BatteryProperties properties;
 	int BatteryIndex,ParameterIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
