@@ -83,8 +83,13 @@ int main()
     BatteryReport();
     
     language=German;
-    array[4][NumberOfParameters] = {{50, 0.4, 60}, {10, 0.6,25}, {20, 0.25, 50},{5,0.49,10}}; 
-    resultant[4]={0,0,1,0};
+    array[4][NumberOfParameters] = {
+	    {50, 0.4, 60}, 
+	    {10, 0.6,25}, 
+	    {20, 0.25, 50},
+	    {5,0.49,10}
+    }; 
+    resultant[4]= {0,0,1,0};
     assert((Accumulator(array,resultant)));
     BatteryReport();
     return 0; 
