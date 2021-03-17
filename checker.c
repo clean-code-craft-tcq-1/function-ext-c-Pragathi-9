@@ -59,9 +59,13 @@ int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][Numb
  * This function reports the breach status for all the parameters of each battery
  *  It also displays the overall status of a battery, both in German and English as requested.
  *********************************************************************************/	
-void BMS_BatteryReport()
+void BMS_ReportingController()
 {	
+	
 	struct BatteryProperties properties;
+	
+	printf("Reporting the BMS health results from Controller as follows:\n");
+	
 	int ParameterIndex,BatteryIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
 	{
@@ -96,12 +100,12 @@ int main()
     float SampleArray_1[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
     bool Expectedresultant_1[]={1,0,1};
     assert((BMS_AttributeStatusAccumulator(SampleArray_1,Expectedresultant_1)));
-    BMS_BatteryReport();
+    BMS_ReportingController();
     
     language=German;
     float SampleArray_2[][NumberOfParameters] = {{50, 0.4, 60},{10, 0.6,25},{20, 0.25, 50}}; 
     bool Expectedresultant_2[]= {0,0,1};
     assert(BMS_AttributeStatusAccumulator(SampleArray_2,Expectedresultant_2));
-    BMS_BatteryReport();
+    BMS_ReportingController();
     return 0; 
 }
