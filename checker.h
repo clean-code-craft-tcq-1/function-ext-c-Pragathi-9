@@ -58,7 +58,7 @@ const char* DisplayinGerman[] = {
  " ist normal", 
 };
 const char* DisplayinEnglish[] = {
-" Warnung: Schwellenwert breahced", 
+" Warning: Limit is breached", 
  "  is NORMAL", 
 };
 
