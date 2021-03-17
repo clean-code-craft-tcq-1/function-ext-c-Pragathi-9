@@ -99,7 +99,7 @@ int main()
     language=English;
     float array[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
     bool resultant[NumberOfBatteries]={1,0,1};
-    assert(!(Accumulator(array,resultant)));
+    assert((Accumulator(array,resultant)));
     BatteryReport();
     return 0; 
 }
