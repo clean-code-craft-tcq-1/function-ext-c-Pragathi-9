@@ -19,8 +19,9 @@ int language=German;
 
 enum BatteryParameters{
 	Temperature,
-	StateofCharge,
 	ChargeRate
+	StateofCharge
+	
 };
 
 
@@ -28,30 +29,23 @@ enum BatteryParameters{
 #define NumberOfBatteries 3
 #define NumberOfParameters 3
 
-float maximumthreshold[]={MAXTEMP, MAXSOC, MAXCHARGERATE};
-float minimumthreshold[]={MINTEMP, MINSOC, MINCHARGERATE};
-
-/*int parameterbreachstatus[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
-float attributevalue[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
-int Status[NumberOfBatteries]={0,0,0};*/
+float maximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
+float minimumthreshold[]={MINTEMP,MINCHARGERATE,MINSOC};
 
 struct BatteryProperties
 {
 	int parameterbreachstatus[NumberOfBatteries][NumberOfParameters];
 	enum BatteryParameters Attributes;
 	float attributevalue[NumberOfBatteries][NumberOfParameters];
-	int Status[NumberOfBatteries];
-	float maximumthreshold[NumberOfParameters];
-	float minimumthreshold[NumberOfParameters];
-	
+	int Status[NumberOfBatteries];	
 };
 
 
 struct BatteryProperties properties;
 
 
-const char* BMSattributeEnglish[]= { "Temperature", "State-of-Charge","Charge-rate"};
-const char* BMSattributeGerman[]= {" Temperatur "," Ladezustand ","Laderate "};
+const char* BMSattributeEnglish[]= { "Temperature","Charge-rate","State-of-Charge"};
+const char* BMSattributeGerman[]= {" Temperatur ",,"Laderate "," Ladezustand "};
 
 const char* DisplayinGerman[] = {
 "Warnung: niedriger Pegel durchbrochen", 
