@@ -9,7 +9,7 @@
 #define MAXCHARGERATE 0.5
 #define MINCHARGERATE 0
 #define MAXTEMP 45.0
-#define MINTEMP 35.0
+#define MINTEMP 0
 #define MAXSOC 80.0
 #define MINSOC 20.0
 #define German 0
