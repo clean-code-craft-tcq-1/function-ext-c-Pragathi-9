@@ -77,13 +77,13 @@ int main()
 { 
     
     language=English;
-    float array[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
+    float array[NumberOfBatteries][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
     bool resultant[NumberOfBatteries]={1,0,1};
     assert((Accumulator(array,resultant)));
     BatteryReport();
     
     language=German;
-    array[][NumberOfParameters] = {{50, 0.4, 60}, {10, 0.6,25}, {20, 0.25, 50},{5,0.49,10}}; 
+    array[NumberOfBatteries][NumberOfParameters] = {{50, 0.4, 60}, {10, 0.6,25}, {20, 0.25, 50},{5,0.49,10}}; 
     resultant[NumberOfBatteries]={0,0,1,0};
     assert((Accumulator(array,resultant)));
     BatteryReport();
