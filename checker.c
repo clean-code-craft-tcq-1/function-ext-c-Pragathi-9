@@ -79,10 +79,10 @@ void BMS_BatteryReport()
 	
 }
 
-void ReportingController()
+void BMS_ReportingController()
 {
 	printf("Reporting the BMS health results from Controller as follows:\n");
-    BatteryReport();
+    	BMS_BatteryReport();
 }   
  
   
