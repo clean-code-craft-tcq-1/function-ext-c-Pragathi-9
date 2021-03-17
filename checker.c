@@ -17,13 +17,13 @@
 bool BMS_BreachRanges(float parameter, int index)
 
 {	
-	BatteryProperties boundary;
+	struct BatteryProperties boundary;
 	
 	if (parameter< boundary.minimumthreshold[index])
 	  {		
 		  return 0;
 	  }
-	else if (parameter>=boundary.maximumthreshold[index])
+	else if (parameter>= boundary.maximumthreshold[index])
 	{
 		return 0;
 	}
@@ -37,7 +37,7 @@ bool BMS_BreachRanges(float parameter, int index)
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[NumberOfBatteries])
 {
 	bool flag=0;
-	BatteryProperties *properties;
+	struct BatteryProperties properties;
 	int Battery_status= 1;
 	int BatteryIndex,ParameterIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
@@ -45,15 +45,15 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
 			
 		{
-			properties->Attributes=ParameterIndex;
-			properties->attributevalue[BatteryIndex][ParameterIndex]= (array[BatteryIndex][ParameterIndex]);
+			properties.Attributes=ParameterIndex;
+			properties.attributevalue[BatteryIndex][ParameterIndex]= (array[BatteryIndex][ParameterIndex]);
 			//returns 0 or 1 so comments will be in range and out of range
-			properties-> parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),properties->Attributes);
-			Battery_status= Battery_status & (properties-> parameterbreachstatus[BatteryIndex][ParameterIndex]);
+			properties.parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),properties.Attributes);
+			Battery_status= Battery_status & (properties.parameterbreachstatus[BatteryIndex][ParameterIndex]);
 		}
 		
-		properties-> Status[BatteryIndex]= Battery_status;
-		if ((properties-> Status[BatteryIndex])==(resultant[BatteryIndex]))
+		properties.Status[BatteryIndex]= Battery_status;
+		if ((properties.Status[BatteryIndex])==(resultant[BatteryIndex]))
 		{
 			flag=1;
 		}
@@ -68,7 +68,7 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 	
 void BatteryReport()
 {	
-	BatteryProperties *properties;
+	struct BatteryProperties properties;
 	int ParameterIndex,BatteryIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
 	{
@@ -77,20 +77,20 @@ void BatteryReport()
 		{	
 			if (language==German)
 			{
-				printf("%s = %f and %s", BMSattributeEnglish[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+				printf("%s = %f and %s", BMSattributeEnglish[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
 			else
 			{
-				printf("%s = %f and %s", BMSattributeGerman[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+				printf("%s = %f and %s", BMSattributeGerman[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
 		}
 		if (language==German)
 			{
-			printf ("Battery %d is %s",BatteryIndex,DisplayStatusEnglish[properties-> Status[BatteryIndex]]);
+			printf ("Battery %d is %s",BatteryIndex,DisplayStatusEnglish[properties.Status[BatteryIndex]]);
 			}
 		else
 			{
-			printf ("Battery %d is %s",BatteryIndex,DisplayStatusGerman[properties-> Status[BatteryIndex]]);
+			printf ("Battery %d is %s",BatteryIndex,DisplayStatusGerman[properties.Status[BatteryIndex]]);
 		}
 	}
 	
@@ -101,7 +101,7 @@ void BatteryReport()
   
 int main() 
 { 
-    BatteryProperties *properties;
+    struct BatteryProperties properties;
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
     bool resultant[NumberOfBatteries]={1,0,1};
