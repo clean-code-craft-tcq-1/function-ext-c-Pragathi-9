@@ -9,49 +9,57 @@
 
 
 /********************************************************************************
- * A common function that checks the range of parameters.
- * input: parameter, Maximum and minimum range to be checked
- * returns: Check if the parameter is out of the given maximum and minimum range
+ * A common function that checks if the paramters are within the boundary conditions.
+ * input: parameter value, Maximum and minimum range to be checked
+ * returns: Check if the parameter is within in the given maximum and minimum range
  *********************************************************************************/
 
-bool BMS_BreachRanges(float parameter, int index)
+bool BMS_AttributeinRangeStatus(float parametervalue, int index)
 
-{	bool inrange=true;
-	if ((parameter< (minimumthreshold[index]))||(parameter>= (maximumthreshold[index])))
+{	bool InRange=true;
+	if ((parametervalue< (AttributeMinimumthreshold[index]))||(parametervalue>= (AttributeMaximumthreshold[index])))
 	  {		
-		  return (inrange=false);
+		  return (InRange=false);
 	  }
-	return(inrange);
+	return(InRange);
 }
 
-
-int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[])
+/********************************************************************************
+ * This function accumulates the breach status for all the parameters of the BMS and stores in an array
+ * Also, the accumulated result is verified against the expected results
+ * input: Array which has parameter values of different batteries.
+ * returns: Verification of the checked Battery status against the expected.
+ *********************************************************************************/
+int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[])
 {
-	int flag=0,final_status=1;
+	int VerifyResult=0,VerifiedResult=1;
 	struct BatteryProperties properties;
 	int BatteryIndex,ParameterIndex;
 	for (BatteryIndex=0;BatteryIndex < NumberOfBatteries;BatteryIndex++)
 	{
 		int Battery_status= 1;
-		final_status=1;
-		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
+		VerifiedResult=1;
+		for (ParameterIndex=0;ParameterIndex < NumberOfParameters;ParameterIndex++)
 			
 		{
 			properties.Attributes=ParameterIndex;
-			properties.attributevalue[BatteryIndex][ParameterIndex]= (array[BatteryIndex][ParameterIndex]);
-			properties.parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),ParameterIndex);
-			Battery_status= Battery_status & (properties.parameterbreachstatus[BatteryIndex][ParameterIndex]);
+			properties.AttributeValue[BatteryIndex][ParameterIndex]= (Input_Attribute[BatteryIndex][ParameterIndex]);
+			properties.AttributeinRangeStatus[BatteryIndex][ParameterIndex]= BMS_AttributeinRangeStatus((Input_Attribute[BatteryIndex][ParameterIndex]),ParameterIndex);
+			Battery_status= Battery_status & (properties.AttributeinRangeStatus[BatteryIndex][ParameterIndex]);
 		}
 		
-		properties.Status[BatteryIndex]= Battery_status;
-		flag= (!((properties.Status[BatteryIndex]) ^ (resultant[BatteryIndex])));
-		final_status &= flag;
+		properties.BatteryStatus[BatteryIndex]= Battery_status;
+		VerifyResult= (!((properties.BatteryStatus[BatteryIndex]) ^ (Expected_result[BatteryIndex])));
+		VerifiedResult &= VerifyResult;
 	}
 	
-	return (final_status);
+	return (VerifiedResult);
 }
-	
-void BatteryReport()
+/********************************************************************************
+ * This function reports the breach status for all the parameters of each battery
+ *  It also displays the overall status of a battery, both in German and English as requested.
+ *********************************************************************************/	
+void BMS_BatteryReport()
 {	
 	struct BatteryProperties properties;
 	int ParameterIndex,BatteryIndex;
@@ -60,37 +68,37 @@ void BatteryReport()
 		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
 			
 		{	
-			printf("%s = %f, %s \n", BMSattribute[language][ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], Display[language][(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+			printf("%s = %f, %s \n", BMS_AttributeDisplay[language][ParameterIndex],properties.AttributeValue[BatteryIndex][ParameterIndex], BMS_AttributeRangeStatusDisplay[language][(properties.AttributeinRangeStatus[BatteryIndex][ParameterIndex])]);
 			
 		}
 		
-		printf ("Battery %d -> %s \n",BatteryIndex,DisplayStatus[language][properties.Status[BatteryIndex]]);
+		printf ("Battery %d -> %s \n",BatteryIndex,BMS_StatusDisplay[language][properties.BatteryStatus[BatteryIndex]]);
 		
 	}
 	
 	
 }
-	
+
+void ReportingController()
+{
+	printf("Reporting the BMS health results from Controller as follows:\n");
+    BatteryReport();
+}   
  
   
 int main() 
 { 
     
     language=English;
-    float array[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
-    bool resultant[]={1,0,1};
-    assert((Accumulator(array,resultant)));
+    float SampleArray_1[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
+    bool Expectedresultant_1[]={1,0,1};
+    assert((BMS_AttributeStatusAccumulator(SampleArray_1,Expectedresultant_1)));
     BatteryReport();
     
     language=German;
-    float array_2[][NumberOfParameters] = {
-	    {50, 0.4, 60}, 
-	    {10, 0.6,25}, 
-	    {20, 0.25, 50}
-    }; 
-    bool resultant_2[]= {0,0,1};
-    assert(Accumulator(array_2,resultant_2));
-    BatteryReport();
+    float SampleArray_2[][NumberOfParameters] = {{50, 0.4, 60},{10, 0.6,25},{20, 0.25, 50}}; 
+    bool Expectedresultant_2[]= {0,0,1};
+    assert(BMS_AttributeStatusAccumulator(SampleArray_2,Expectedresultant_2));
+    BMS_ReportingController();
     return 0; 
 }
-
