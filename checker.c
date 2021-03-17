@@ -89,8 +89,8 @@ int main()
 { 
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
-    float resultant[]={1,0,1};
-    assert((Accumulator(arr))==(resultant[NumberOfBatteries]));
+    float resultant[NumberOfBatteries]={1,0,1};
+    assertArrayEquals((Accumulator(arr)),(resultant));
     BatteryReport();
     return 0; 
 }
