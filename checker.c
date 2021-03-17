@@ -16,7 +16,7 @@
 
 bool BMS_BreachRanges(float parameter, int index)
 
-{	bool inrage=true;
+{	bool inrange=true;
 	if ((parameter< (minimumthreshold[index]))||(parameter>= (maximumthreshold[index])))
 	  {		
 		  return (inrange=false);
