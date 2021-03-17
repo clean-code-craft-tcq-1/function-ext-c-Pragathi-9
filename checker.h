@@ -61,6 +61,5 @@ const char* BMS_StatusDisplay[][2]={
 /****************************************************************************
 Function declaration
 ***************************************************************************/
-void BMS_BatteryReport();
 void BMS_ReportingController();
 int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);
