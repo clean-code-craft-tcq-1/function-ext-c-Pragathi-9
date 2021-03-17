@@ -57,9 +57,9 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters])
 	return (properties-> Status[NumberOfBatteries]);
 }
 	
-void BatteryReport(BatteryProperties *properties)
+void BatteryReport()
 {	
-	
+	BatteryProperties *properties;
 	int ParameterIndex,BatteryIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
 	{
@@ -90,8 +90,8 @@ int main()
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
     float resultant[]={1,0,1};
-    assert((Accumulator(arr))==(resultant[]));
-    BatteryReport(BatteryProperties *);
+    assert((Accumulator(arr))==(resultant[NumberOfBatteries]));
+    BatteryReport();
     return 0; 
 }
 
