@@ -44,8 +44,8 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 		}
 		
 		properties.Status[BatteryIndex]= Battery_status;
-		//flag= (((properties.Status[BatteryIndex])==(resultant[BatteryIndex]))? 1:0);
-		//final_status &= flag;
+		flag= (!((properties.Status[BatteryIndex]) ^ (resultant[BatteryIndex])));
+		final_status &= flag;
 	}
 	
 	return (final_status);
