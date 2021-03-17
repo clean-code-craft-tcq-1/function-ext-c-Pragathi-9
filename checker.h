@@ -28,8 +28,8 @@ enum BatteryParameters{
 #define NumberOfBatteries 3
 #define NumberOfParameters 3
 
-float maximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
-float minimumthreshold[]={MINTEMP,MINCHARGERATE,MINSOC};
+float maximumthreshold[]={MAXTEMP,MAXCHARGERATE,0.8};
+float minimumthreshold[]={MINTEMP,MINCHARGERATE,0.2};
 
 struct BatteryProperties
 {
