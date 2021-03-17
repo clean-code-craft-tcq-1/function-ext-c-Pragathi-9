@@ -45,11 +45,11 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters])
 		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
 			
 		{
-			properties->attribute=ParameterIndex;
+			properties->Attributes=ParameterIndex;
 			properties->attributevalue[BatteryIndex][ParameterIndex]= (array[BatteryIndex][ParameterIndex]);
 			//returns 0 or 1 so comments will be in range and out of range
-			properties-> parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),properties->attribute);
-			Battery_status= Battery_Status & (properties-> parameterbreachstatus[BatteryIndex][ParameterIndex]);
+			properties-> parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),properties->Attributes);
+			Battery_status= Battery_status & (properties-> parameterbreachstatus[BatteryIndex][ParameterIndex]);
 		}
 		
 		properties-> Status[BatteryIndex]= Battery_status;
@@ -66,9 +66,9 @@ int BatteryReport(BatteryProperties * properties)
 			
 		{	
 		if (language=English)
-			printf("%s = %d and %s", BMSattributeEnglish[ParameterIndex],properties-> properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+			printf("%s = %d and %s", BMSattributeEnglish[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 		else
-			printf("%s = %d and %s", BMSattributeGerman[ParameterIndex],properties-> properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+			printf("%s = %d and %s", BMSattributeGerman[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 		}
 		if (language=English)
 		{
@@ -86,9 +86,11 @@ int BatteryReport(BatteryProperties * properties)
   
 int main() 
 { 
-    float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0. 6}, {30, 0.7, 0.2}}; 
-    assert((Accumulate(arr))=={1,0,1});
-    Report(Battery_parameters *);
+    language=English;
+    float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
+    float resultant[]={1,0,1}
+    assert((Accumulate(arr))==resultant[]);
+    Report(BatteryProperties *);
     return 0; 
 }
 
