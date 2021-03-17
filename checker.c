@@ -77,20 +77,20 @@ void BatteryReport()
 		{	
 			if (language==English)
 			{
-				printf("%s = %f and %s", BMSattributeEnglish[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+				printf("%s = %f and %s \n", BMSattributeEnglish[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
 			else
 			{
-				printf("%s = %f and %s", BMSattributeGerman[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+				printf("%s = %f and %s \n", BMSattributeGerman[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
 		}
 		if (language==English)
 			{
-			printf ("Battery %d is %s",BatteryIndex,DisplayStatusEnglish[properties.Status[BatteryIndex]]);
+			printf ("Battery %d is %s \n",BatteryIndex,DisplayStatusEnglish[properties.Status[BatteryIndex]]);
 			}
 		else
 			{
-			printf ("Battery %d is %s",BatteryIndex,DisplayStatusGerman[properties.Status[BatteryIndex]]);
+			printf ("Battery %d is %s \n",BatteryIndex,DisplayStatusGerman[properties.Status[BatteryIndex]]);
 		}
 	}
 	
@@ -103,7 +103,7 @@ int main()
 { 
     
     language=English;
-    float array[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
+    float array[][NumberOfParameters] = {{40, 0.2, 0.3}, {46, 0.3,0.6}, {30, 0.7, 0.2}}; 
     bool resultant[NumberOfBatteries]={1,0,1};
     assert(!(Accumulator(array,resultant)));
     BatteryReport();
