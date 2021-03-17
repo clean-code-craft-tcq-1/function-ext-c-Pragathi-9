@@ -25,12 +25,12 @@ bool BMS_BreachRanges(float parameter, int index)
 }
 
 
-int Accumulator(int numberOfBatteriesfloat, int numberOfParameters, float array[][numberOfParameters],  bool resultant[])
+int Accumulator(int numberOfBatteries, int numberOfParameters, float array[][numberOfParameters],  bool resultant[])
 {
 	int flag=0,final_status=1;
 	struct BatteryProperties properties;
 	int BatteryIndex,ParameterIndex;
-	for (BatteryIndex=0;BatteryIndex<numberOfBatteries;BatteryIndex++)
+	for (BatteryIndex=0;BatteryIndex < numberOfBatteries;BatteryIndex++)
 	{
 		int Battery_status= 1;
 		final_status=1;
