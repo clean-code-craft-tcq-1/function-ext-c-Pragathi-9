@@ -75,7 +75,7 @@ void BatteryReport()
 		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
 			
 		{	
-			if (language==German)
+			if (language=English)
 			{
 				printf("%s = %f and %s", BMSattributeEnglish[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
@@ -84,7 +84,7 @@ void BatteryReport()
 				printf("%s = %f and %s", BMSattributeGerman[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
 		}
-		if (language==German)
+		if (language=English)
 			{
 			printf ("Battery %d is %s",BatteryIndex,DisplayStatusEnglish[properties.Status[BatteryIndex]]);
 			}
