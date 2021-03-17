@@ -19,9 +19,8 @@ int language=German;
 
 enum BatteryParameters{
 	Temperature,
-	ChargeRate
-	StateofCharge
-	
+	ChargeRate,
+	StateofCharge	
 };
 
 
@@ -45,7 +44,7 @@ struct BatteryProperties properties;
 
 
 const char* BMSattributeEnglish[]= { "Temperature","Charge-rate","State-of-Charge"};
-const char* BMSattributeGerman[]= {" Temperatur ",,"Laderate "," Ladezustand "};
+const char* BMSattributeGerman[]= {" Temperatur ","Laderate "," Ladezustand "};
 
 const char* DisplayinGerman[] = {
 "Warnung: niedriger Pegel durchbrochen", 
