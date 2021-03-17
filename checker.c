@@ -18,14 +18,13 @@ bool BMS_BreachRanges(float parameter, int index)
 
 {	
 	struct BatteryProperties properties;
-	int idx=0;
-	idx=index;
 	
-	if (parameter< (properties.minimumthreshold[idx]))
+	
+	if (parameter< (properties.minimumthreshold[index]))
 	  {		
 		  return 0;
 	  }
-	else if (parameter>= (properties.maximumthreshold[idx]))
+	else if (parameter>= (properties.maximumthreshold[index]))
 	{
 		return 0;
 	}
@@ -50,7 +49,7 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 			properties.Attributes=ParameterIndex;
 			properties.attributevalue[BatteryIndex][ParameterIndex]= (array[BatteryIndex][ParameterIndex]);
 			//returns 0 or 1 so comments will be in range and out of range
-			properties.parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),properties.Attributes);
+			properties.parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),ParameterIndex);
 			Battery_status= Battery_status & (properties.parameterbreachstatus[BatteryIndex][ParameterIndex]);
 		}
 		
