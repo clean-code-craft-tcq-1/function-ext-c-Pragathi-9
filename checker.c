@@ -82,11 +82,11 @@ void BMS_BatteryReport()
  * This function calls the controller to report the battery parameter status
  *  It also displays the overall status of a battery, both in German and English as requested.
  *********************************************************************************/
-void BMS_ReportingController()
+/*void BMS_ReportingController()
 {
 	printf("Reporting the BMS health results from Controller as follows:\n");
     	BMS_BatteryReport();
-}   
+}  */
  
   
 int main() 
@@ -96,12 +96,12 @@ int main()
     float SampleArray_1[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
     bool Expectedresultant_1[]={1,0,1};
     assert((BMS_AttributeStatusAccumulator(SampleArray_1,Expectedresultant_1)));
-    BMS_ReportingController();
+    BMS_BatteryReport();
     
     language=German;
     float SampleArray_2[][NumberOfParameters] = {{50, 0.4, 60},{10, 0.6,25},{20, 0.25, 50}}; 
     bool Expectedresultant_2[]= {0,0,1};
     assert(BMS_AttributeStatusAccumulator(SampleArray_2,Expectedresultant_2));
-    BMS_ReportingController();
+    BMS_BatteryReport();
     return 0; 
 }
