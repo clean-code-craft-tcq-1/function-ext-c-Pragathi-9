@@ -34,7 +34,7 @@ int Accumulator(int numberOfBatteriesfloat, int numberOfParameters, array[][numb
 	{
 		int Battery_status= 1;
 		final_status=1;
-		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
+		for (ParameterIndex=0;ParameterIndex<numberOfParameters;ParameterIndex++)
 			
 		{
 			properties.Attributes=ParameterIndex;
