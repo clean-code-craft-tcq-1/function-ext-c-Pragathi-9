@@ -43,16 +43,16 @@ struct BatteryProperties
 struct BatteryProperties properties;
 
 
-const char* BMSattribute[][]= {{" Temperatur ","Laderate "," Ladezustand "}, {"Temperature","Charge-rate","State-of-Charge"}};
+const char* BMSattribute[][NumberOfParameters]= {{" Temperatur ","Laderate "," Ladezustand "}, {"Temperature","Charge-rate","State-of-Charge"}};
 
-const char* Display[][] = {
+const char* Display[][2] = {
 			  {"Warnung: niedriger Pegel durchbrochen",
 			    " ist normal"},
 			  {" Warning: Limit is breached", 
 			   "  is NORMAL"}
 };
 
-const char* DisplayStatus[][]={
+const char* DisplayStatus[][2]={
 	{"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in einem schlechten Zustand. \n",
 	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n"},
 	{"The Battery management system is in bad condition considering the above factors \n",
