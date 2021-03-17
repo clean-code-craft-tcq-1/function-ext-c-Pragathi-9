@@ -7,46 +7,59 @@
 /* Macros and define values */
 /* ===================													*/
 #define MAXCHARGERATE 0.5
+#define MINCHARGERATE 0
 #define MAXTEMP 45.0
 #define MINTEMP 0
 #define MAXSOC 80.0
 #define MINSOC 20.0
 #define German 0
 #define English 1
+#define NumberOfBatteries 3
+#define NumberOfParameters 3
 
 int language=German;
 
-enum factor {factor_Chargerate, factor_StateofCharge, factor_temperature};
-
-const char* BMSattributeEnglish[]= {"Charge-rate", "State-of-Charge", "Temperature"};
-const char* BMSattributeGerman[]= {"Laderate "," Ladezustand "," Temperatur "};
-
-const char* DisplayinGerman[] = {
-"Warnung: niedriger Pegel durchbrochen", 
-"Warnung: Stufe niedrig",
- " ist normal", 
-"Warnung: Stufe hoch",
- "Warnung: High Level verletzt"
-};
-const char* DisplayinEnglish[] = {
-" Warning: low level breahced", 
-"Warning: level low",
- "  is NORMAL", 
-"Warning: level High",
- "Warning:high level breached"
+enum BatteryParameters{
+	Temperature,
+	ChargeRate,
+	StateofCharge	
 };
 
-const char* BMSGoodStatus[]={
-	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n",
-	"The Battery management system is in good condition considering the above factors \n"
+
+float AttributeMaximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
+float AttributeMinimumthreshold[]={MINTEMP,MINCHARGERATE,MINSOC};
+
+struct BatteryProperties
+{
+	int AttributeinRangeStatus[NumberOfBatteries][NumberOfParameters];
+	enum BatteryParameters Attributes;
+	float AttributeValue[NumberOfBatteries][NumberOfParameters];
+	int BatteryStatus[NumberOfBatteries];	
 };
 
-const char* BMSPoorStatus[]={
-	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in einem schlechten Zustand. \n",	
-	"The Battery management system is in bad condition considering the above factors \n"
+
+struct BatteryProperties properties;
+
+
+const char* BMS_AttributeDisplay[][NumberOfParameters]= {{" Temperatur ","Laderate "," Ladezustand "}, {"Temperature","Charge-rate","State-of-Charge"}};
+
+const char* BMS_AttributeRangeStatusDisplay[][2] = {
+			  {"Warnung: niedriger Pegel durchbrochen",
+			    " ist normal"},
+			  {" Warning: Limit is breached", 
+			   "  is NORMAL"}
 };
+
+const char* BMS_StatusDisplay[][2]={
+	{"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in einem schlechten Zustand. \n",
+	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n"},
+	{"The Battery management system is in bad condition considering the above factors \n",
+	"The Battery management system is in good condition considering the above factors \n"}
+};
+
+
 /****************************************************************************
 Function declaration
 ***************************************************************************/
-int batteryIsOk( float ChargeRate, float stateofcharge, float temperature);
-void DisplayAttributeCondition(enum factor attribute, float value, int array);
+void BMS_ReportingController();
+int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);

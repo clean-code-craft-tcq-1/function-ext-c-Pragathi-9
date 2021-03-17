@@ -6,237 +6,97 @@
 #include <stdbool.h>
 #include "checker.h"
 
-enum factor attribute;
-/******************************************************************************
-******************************************************************************/
 
-float tolerance (float upperlimit)
-{
-	return((5/100)*upperlimit);
-}
+
 /********************************************************************************
- * A function that gives Charge rate of a Battery management system.
- * if the current Charge rating is above the threshold, then the battery is unacceptable.
- * input: Current charge rate in decimal (percentage converted to floating value)
- * returns: Check if the charge rate is out of boundary conditions
+ * A common function that checks if the paramters are within the boundary conditions.
+ * input: parameter value, Maximum and minimum range to be checked
+ * returns: Check if the parameter is within in the given maximum and minimum range
  *********************************************************************************/
-int BMS_ChargeRateCheck(float chargerate)
-{	
-	int chargerate_check = (chargerate > MAXCHARGERATE);
- 
-	 if(chargerate_check)
+
+bool BMS_AttributeinRangeStatus(float parametervalue, int index)
+
+{	bool InRange=true;
+	if ((parametervalue< (AttributeMinimumthreshold[index]))||(parametervalue>= (AttributeMaximumthreshold[index])))
+	  {		
+		  return (InRange=false);
+	  }
+	return(InRange);
+}
+
+/********************************************************************************
+ * This function accumulates the breach status for all the parameters of the BMS and stores in an array
+ * Also, the accumulated result is verified against the expected results
+ * input: Array which has parameter values of different batteries.
+ * returns: Verification of the checked Battery status against the expected.
+ *********************************************************************************/
+int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[])
+{
+	int VerifyResult=0,VerifiedResult=1;
+	struct BatteryProperties properties;
+	int BatteryIndex,ParameterIndex;
+	for (BatteryIndex=0;BatteryIndex < NumberOfBatteries;BatteryIndex++)
+	{
+		int Battery_status= 1;
+		VerifiedResult=1;
+		for (ParameterIndex=0;ParameterIndex < NumberOfParameters;ParameterIndex++)
+			
+		{
+			properties.Attributes=ParameterIndex;
+			properties.AttributeValue[BatteryIndex][ParameterIndex]= (Input_Attribute[BatteryIndex][ParameterIndex]);
+			properties.AttributeinRangeStatus[BatteryIndex][ParameterIndex]= BMS_AttributeinRangeStatus((Input_Attribute[BatteryIndex][ParameterIndex]),ParameterIndex);
+			Battery_status= Battery_status & (properties.AttributeinRangeStatus[BatteryIndex][ParameterIndex]);
+		}
 		
-	   {	
-		DisplayAttributeCondition(factor_Chargerate, chargerate, 4);
-		return 0;
-	   }
-	else
-	{
-		DisplayAttributeCondition(factor_Chargerate, chargerate, 2);  
-		return 1;
+		properties.BatteryStatus[BatteryIndex]= Battery_status;
+		VerifyResult= (!((properties.BatteryStatus[BatteryIndex]) ^ (Expected_result[BatteryIndex])));
+		VerifiedResult &= VerifyResult;
 	}
-}
-/********************************************************************************
- * A common function that checks the range of parameters.
- * input: parameter, Maximum and minimum range to be checked
- * returns: Check if the parameter is out of the given maximum and minimum range
- *********************************************************************************/
-bool BMS_RangeCheck(float parameter, float maxlimit, float minlimit)
-{
-	return((parameter >= minlimit) && (parameter < maxlimit));
-}
-/********************************************************************************
- * A common function that checks the warning for breach, low and normal ranges.
- * input: parameter, Maximum and minimum thresholds range to be checked
- * returns: Check if the parameter falls in normal or any warnings range
- *********************************************************************************/
-int BMS_WarningRanges(float parameter, float maxrange, float minrange)
-{
 	
-	float lowwarninglimit = (minrange + tolerance(maxrange));
-	float highwaninglimit=  (maxrange - tolerance(maxrange));
-	int ArrayIndex=0;
-	int ranges[]= {minrange, lowwarninglimit, highwaninglimit, maxrange};
-	 int numberofrange = ((sizeof(ranges))/(sizeof(ranges[0])));
-	for (int index=0; index<(numberofrange-1); index++)
-	{
-			if (BMS_RangeCheck(parameter, ranges[index+1],ranges[index]))
-			{
-				ArrayIndex= index+1;
-			}
-	}
-	 
- return (ArrayIndex);
+	return (VerifiedResult);
 }
-	 
-
 /********************************************************************************
- * A function that gives State-of-Charge parameter within boundary check of a Battery management system.
- * input: SOC in percentage
- * returns: Check if the SOC is inside boundary conditions, display the warnings or normal range messages
- *********************************************************************************/
+ * This function calls the controller to report the battery parameter status
+ *  It also displays the overall status of a battery, both in German and English as requested.
+ *********************************************************************************/	
+void BMS_ReportingController()
+{	
+	
+	struct BatteryProperties properties;
+	
+	printf("Reporting the BMS health results from Controller as follows:\n");
+	
+	int ParameterIndex,BatteryIndex;
+	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
+	{
+		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
+			
+		{	
+			printf("%s = %f, %s \n", BMS_AttributeDisplay[language][ParameterIndex],properties.AttributeValue[BatteryIndex][ParameterIndex], BMS_AttributeRangeStatusDisplay[language][(properties.AttributeinRangeStatus[BatteryIndex][ParameterIndex])]);
+			
+		}
+		
+		printf ("Battery %d -> %s \n",BatteryIndex,BMS_StatusDisplay[language][properties.BatteryStatus[BatteryIndex]]);
+		
+	}
+	
+	
+}
  
-bool BMS_StateOfChargeInRange(float soc_value)
-{
-  int soc_check=  BMS_WarningRanges(soc_value,MAXSOC,MINSOC);
-  if (soc_check>0)
-  {
-	   DisplayAttributeCondition(factor_StateofCharge,soc_value, soc_check);
- 	   return (1);
-  }
-  else
-  {
-	return 0;
-  }
-}
-/********************************************************************************
- * A function that gives State-of-Charge parameter outside boundary check of a Battery management system.
- * if the current SOC is outside the boundary conditions, then the battery is unacceptable.
- * if the SOC exceeds the 80% threshold, that reduces the life span of the battery, and losses are incurred
- * Battery is charged above 80% only in outstation charging system.
- * input: SOC in percentage
- * returns: Check if the SOC is out of boundary conditions
- *********************************************************************************/			      
-bool BMS_StateOfChargeOutofRange(float soc_value)
-{
-  if (soc_value<MINSOC)
-  {
-	  DisplayAttributeCondition(factor_StateofCharge,soc_value, 0);
-	  return 0;
-  }
-if (soc_value>=MAXSOC)
-{
-	
-	DisplayAttributeCondition(factor_StateofCharge,soc_value,4);
-	return 0;
-}
-return (0);
-}
-/********************************************************************************
- * A function that gives State-of-Charge parameter boundary check of a Battery management system.
- * input: SOC in percentage
- * returns: Check if the SOC is inside/outside boundary conditions. Return 1 if its within range.
- *********************************************************************************/			      
-int BMS_StateOfCharge(float soc)
-{
-	bool OutofRangestatus= BMS_StateOfChargeOutofRange(soc);
-	bool InRangeStatus=BMS_StateOfChargeInRange(soc);
-	return (OutofRangestatus||InRangeStatus);
-}
-
-/********************************************************************************
- * A function that gives Safe operating temperature during the charging of a Battery.
- * input: Temperature in degrees
- * returns: Check if the Temperature is within boundary conditions
- *********************************************************************************/
- bool BMS_TemperatureInRange(float temperature_deg)
-{
-  int temperature_check=  BMS_WarningRanges(temperature_deg,MAXTEMP,MINTEMP);
-  if (temperature_check>0)
-	{
-	  DisplayAttributeCondition(factor_temperature,temperature_deg,temperature_check);
-	  return (1);
-	}
-  else
-	{
-	  return 0; 
-	}
-}
-/********************************************************************************
- * A function that gives Safe operating temperature during the charging of a Battery.
- * There could be loss of charge if the temperature is beyond the boundary conditions
- * input: Temperature in degrees
- * returns: Check if the Temperature is out of boundary conditions
- *********************************************************************************/			      
-bool BMS_TemperatureOutofRange(float temperature_deg)
-{
- if (temperature_deg<MINTEMP)
-	
-  {
-	DisplayAttributeCondition(factor_temperature,temperature_deg,0);
-	return 0;
-  }
-  if (temperature_deg>=MAXTEMP)
-  {
-	DisplayAttributeCondition(factor_temperature,temperature_deg,4);
-	return 0;
-  }
-return (0);
-}
-/********************************************************************************
- * A function that gives Safe operating temperature during the charging of a Battery.
- * There could be loss of charge if the temperature is beyond the boundary conditions
- * input: Temperature in degrees
- * returns: Check if the Temperature is out/within of boundary conditions
- *********************************************************************************/
-int BMS_TemperatureCheck(float temperature_deg)
-{
-        bool OutofRangeTemperatureStatus= BMS_TemperatureOutofRange(temperature_deg);
-	bool InRangeTemperatureStatus= BMS_TemperatureInRange(temperature_deg);
-	return (OutofRangeTemperatureStatus||InRangeTemperatureStatus);
   
-}
-/********************************************************************************
- * Process: Display the battery temperature/SoC/Charge rate condtion
- *********************************************************************************/
-void DisplayAttributeCondition(enum factor attribute, float value, int array)
-{
-
-	if (language==German)
-	{
-		printf("%s ist %f  und %s\n", BMSattributeGerman[attribute],value, DisplayinGerman[array]);
-	}
-	else
-	{
-		printf("%s is %f and %s \n", BMSattributeEnglish[attribute],value, DisplayinEnglish[array]);
-	}
-}
-/********************************************************************************
- * Process: Display the battery condition after all the factors are considered
- *********************************************************************************/
-void BMS_DisplayBMSCondition(int condition)
-{
-  int array= ((language==German)? 0:1);
-  if (condition)
-  {
+int main() 
+{ 
     
-    printf("%s \n",BMSGoodStatus[array]);
-  
-  }
-  else
-  {
-   printf("%s \n",BMSPoorStatus[array]);
-  }
+    language=English;
+    float SampleArray_1[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
+    bool Expectedresultant_1[]={1,0,1};
+    assert((BMS_AttributeStatusAccumulator(SampleArray_1,Expectedresultant_1)));
+    BMS_ReportingController();
+    
+    language=German;
+    float SampleArray_2[][NumberOfParameters] = {{50, 0.4, 60},{10, 0.6,25},{20, 0.25, 50}}; 
+    bool Expectedresultant_2[]= {0,0,1};
+    assert(BMS_AttributeStatusAccumulator(SampleArray_2,Expectedresultant_2));
+    BMS_ReportingController();
+    return 0; 
 }
-
-/********************************************************************************
- * A function that gives overall status of a Battery management system
- * Factors such as: Charging Temperature,Charge rate, SoH, SoC are considered to check if the BMS is good to function.
- * input: Fators to check the plausibility of BMS
- * returns: True is the factors meet the requirement
- *********************************************************************************/
- 
-int batteryIsOk(float ChargeRate_Value, float StateofCharge_Value, float Temperature_Value) 
-{
-  int status;
-     status =  (BMS_ChargeRateCheck(ChargeRate_Value)) & (BMS_StateOfCharge(StateofCharge_Value)) & (BMS_TemperatureCheck(Temperature_Value));
-     BMS_DisplayBMSCondition(status);
-     return (status);
-}
-
-
-
-/********************************************************************************
- * Process: Main function that checks all possible test scenarios to check the BMS plausibility
- *********************************************************************************/
-
-int main() {
-  language=German;
-  assert(batteryIsOk(0.4, 70, 30));
-  assert(!batteryIsOk(0,85,45));
-  language=English;
-  assert(batteryIsOk(0.3, 22, 5));
-  assert(!batteryIsOk(0.6,80,46));
-  assert(!batteryIsOk(0.2,19,44));
-}
-
