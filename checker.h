@@ -74,5 +74,5 @@ const char* DisplayStatusGerman[]={
 /****************************************************************************
 Function declaration
 ***************************************************************************/
-int BatteryReport(BatteryProperties * properties);
+void BatteryReport(BatteryProperties * properties);
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters]);
