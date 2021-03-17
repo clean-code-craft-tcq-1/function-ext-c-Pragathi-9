@@ -101,6 +101,7 @@ void BatteryReport()
   
 int main() 
 { 
+    BatteryProperties *properties;
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
     bool resultant[NumberOfBatteries]={1,0,1};
