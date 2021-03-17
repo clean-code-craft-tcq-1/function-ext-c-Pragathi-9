@@ -31,11 +31,11 @@ enum BatteryParameters{
 float maximumthreshold[]={MAXTEMP, MAXSOC, MAXCHARGERATE};
 float minimumthreshold[]={MINTEMP, MINSOC, MINCHARGERATE};
 
-int parameterbreachstatus[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
+/*int parameterbreachstatus[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
 float attributevalue[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
-int Status[NumberOfBatteries]={0,0,0};
+int Status[NumberOfBatteries]={0,0,0};*/
 
-typedef struct
+struct BatteryProperties
 {
 	int parameterbreachstatus[NumberOfBatteries][NumberOfParameters];
 	enum BatteryParameters Attributes;
@@ -44,10 +44,10 @@ typedef struct
 	float maximumthreshold[NumberOfParameters];
 	float minimumthreshold[NumberOfParameters];
 	
-}BatteryProperties;
+};
 
 
-BatteryProperties *properties;
+struct BatteryProperties properties;
 
 
 const char* BMSattributeEnglish[]= { "Temperature", "State-of-Charge","Charge-rate"};
