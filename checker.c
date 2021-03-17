@@ -56,7 +56,7 @@ int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][Numb
 	return (VerifiedResult);
 }
 /********************************************************************************
- * This function reports the breach status for all the parameters of each battery
+ * This function calls the controller to report the battery parameter status
  *  It also displays the overall status of a battery, both in German and English as requested.
  *********************************************************************************/	
 void BMS_ReportingController()
@@ -82,15 +82,6 @@ void BMS_ReportingController()
 	
 	
 }
-/********************************************************************************
- * This function calls the controller to report the battery parameter status
- *  It also displays the overall status of a battery, both in German and English as requested.
- *********************************************************************************/
-/*void BMS_ReportingController()
-{
-	printf("Reporting the BMS health results from Controller as follows:\n");
-    	BMS_BatteryReport();
-}  */
  
   
 int main() 
