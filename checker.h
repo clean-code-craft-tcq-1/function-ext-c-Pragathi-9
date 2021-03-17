@@ -25,12 +25,15 @@ enum BatteryParameters{
 
 
 
-#define NumberOfBatteries 10
+#define NumberOfBatteries 3
 #define NumberOfParameters 3
 
 float maximumthreshold[]={MAXTEMP, MAXSOC, MAXCHARGERATE};
 float minimumthreshold[]={MINTEMP, MINSOC, MINCHARGERATE};
 
+int parameterbreachstatus[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
+float attributevalue[NumberOfBatteries][NumberOfParameters]= {{0,0,0},{0,0,0},{0,0,0}};
+int Status[NumberOfBatteries]={0,0,0};
 
 typedef struct
 {
