@@ -25,7 +25,7 @@ enum BatteryParameters{
 
 
 
-#define NumberOfBatteries 10
+#define NumberOfBatteries 3
 #define NumberOfParameters 3
 
 float maximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
@@ -64,4 +64,4 @@ const char* DisplayStatus[][2]={
 Function declaration
 ***************************************************************************/
 void BatteryReport();
-int Accumulator(int numberOfBatteries, int numberOfParameters, float array[][numberOfParameters],  bool resultant[]);
+int Accumulator(float array[][numberOfParameters],  bool resultant[]);
