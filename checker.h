@@ -14,6 +14,8 @@
 #define MINSOC 20.0
 #define German 0
 #define English 1
+#define NumberOfBatteries 3
+#define NumberOfParameters 3
 
 int language=German;
 
@@ -24,35 +26,31 @@ enum BatteryParameters{
 };
 
 
-
-#define NumberOfBatteries 3
-#define NumberOfParameters 3
-
-float maximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
-float minimumthreshold[]={MINTEMP,MINCHARGERATE,MINSOC};
+float AttributeMaximumthreshold[]={MAXTEMP,MAXCHARGERATE,MAXSOC};
+float AttributeMinimumthreshold[]={MINTEMP,MINCHARGERATE,MINSOC};
 
 struct BatteryProperties
 {
-	int parameterbreachstatus[NumberOfBatteries][NumberOfParameters];
+	int AttributeinRangeStatus[NumberOfBatteries][NumberOfParameters];
 	enum BatteryParameters Attributes;
-	float attributevalue[NumberOfBatteries][NumberOfParameters];
-	int Status[NumberOfBatteries];	
+	float AttributeValue[NumberOfBatteries][NumberOfParameters];
+	int BatteryStatus[NumberOfBatteries];	
 };
 
 
 struct BatteryProperties properties;
 
 
-const char* BMSattribute[][NumberOfParameters]= {{" Temperatur ","Laderate "," Ladezustand "}, {"Temperature","Charge-rate","State-of-Charge"}};
+const char* BMS_AttributeDisplay[][NumberOfParameters]= {{" Temperatur ","Laderate "," Ladezustand "}, {"Temperature","Charge-rate","State-of-Charge"}};
 
-const char* Display[][2] = {
+const char* BMS_AttributeRangeStatusDisplay[][2] = {
 			  {"Warnung: niedriger Pegel durchbrochen",
 			    " ist normal"},
 			  {" Warning: Limit is breached", 
 			   "  is NORMAL"}
 };
 
-const char* DisplayStatus[][2]={
+const char* BMS_StatusDisplay[][2]={
 	{"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in einem schlechten Zustand. \n",
 	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n"},
 	{"The Battery management system is in bad condition considering the above factors \n",
@@ -63,5 +61,6 @@ const char* DisplayStatus[][2]={
 /****************************************************************************
 Function declaration
 ***************************************************************************/
-void BatteryReport();
-int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[]);
+void BMS_BatteryReport();
+void BMS_ReportingController();
+int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);
