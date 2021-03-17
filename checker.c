@@ -66,9 +66,9 @@ int BatteryReport(BatteryProperties * properties)
 			
 		{	
 		if (language=English)
-			printf("%s = %d and %s", BMSattributeEnglish[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+			printf("%s = %f and %s", BMSattributeEnglish[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 		else
-			printf("%s = %d and %s", BMSattributeGerman[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+			printf("%s = %f and %s", BMSattributeGerman[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 		}
 		if (language=English)
 		{
@@ -88,9 +88,9 @@ int main()
 { 
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
-    float resultant[]={1,0,1}
+    float resultant[]={1,0,1};
     assert((Accumulate(arr))==resultant[]);
-    Report(BatteryProperties *);
+    Report(BatteryProperties *properties);
     return 0; 
 }
 
