@@ -27,8 +27,7 @@ bool BMS_BreachRanges(float parameter, int index)
 
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[NumberOfBatteries])
 {
-	int flag=0;
-	int final_status=1;
+	int flag=0,final_status=1;
 	struct BatteryProperties properties;
 	int BatteryIndex,ParameterIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
@@ -45,8 +44,8 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 		}
 		
 		properties.Status[BatteryIndex]= Battery_status;
-		flag= (((properties.Status[BatteryIndex])==(resultant[BatteryIndex]))? 1:0);
-		final_status &= flag;
+		//flag= (((properties.Status[BatteryIndex])==(resultant[BatteryIndex]))? 1:0);
+		//final_status &= flag;
 	}
 	
 	return (final_status);
