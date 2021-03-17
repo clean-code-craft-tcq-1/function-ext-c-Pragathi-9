@@ -34,9 +34,9 @@ bool BMS_BreachRanges(float parameter, int index)
 }
 
 
-int Accumulator(float array[NumberOfBatteries][NumberOfParameters])
+int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[NumberOfBatteries])
 {
-	
+	bool flag=0;
 	BatteryProperties *properties;
 	int Battery_status= 1;
 	int BatteryIndex,ParameterIndex;
@@ -53,8 +53,17 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters])
 		}
 		
 		properties-> Status[BatteryIndex]= Battery_status;
+		if (properties-> Status[BatteryIndex]=resultant[BatteryIndex])
+		{
+			flag=1;
+		}
+		else
+		{	
+			flag=0;
+		}
 	}
-	return (properties-> Status[NumberOfBatteries]);
+	
+	return flag;
 }
 	
 void BatteryReport()
@@ -89,8 +98,8 @@ int main()
 { 
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
-    float resultant[NumberOfBatteries]={1,0,1};
-    assertArrayEquals((Accumulator(arr)),(resultant));
+    bool resultant[NumberOfBatteries]={1,0,1};
+    assert((Accumulator(arr)),(resultant));
     BatteryReport();
     return 0; 
 }
