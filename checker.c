@@ -18,13 +18,14 @@ bool BMS_BreachRanges(float parameter, int index)
 
 {	
 	struct BatteryProperties properties;
-	int index=0;
+	int idx=0;
+	idx=index;
 	
-	if (parameter< (properties.minimumthreshold[index]))
+	if (parameter< (properties.minimumthreshold[idx]))
 	  {		
 		  return 0;
 	  }
-	else if (parameter>= (properties.maximumthreshold[index]))
+	else if (parameter>= (properties.maximumthreshold[idx]))
 	{
 		return 0;
 	}
