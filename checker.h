@@ -43,30 +43,23 @@ struct BatteryProperties
 struct BatteryProperties properties;
 
 
-const char* BMSattributeEnglish[]= { "Temperature","Charge-rate","State-of-Charge"};
-const char* BMSattributeGerman[]= {" Temperatur ","Laderate "," Ladezustand "};
+const char* BMSattribute[][]= {{" Temperatur ","Laderate "," Ladezustand "}, {"Temperature","Charge-rate","State-of-Charge"}};
 
-const char* DisplayinGerman[] = {
-"Warnung: niedriger Pegel durchbrochen", 
- " ist normal", 
-};
-const char* DisplayinEnglish[] = {
-" Warning: Limit is breached", 
- "  is NORMAL", 
+const char* Display[][] = {
+			  {"Warnung: niedriger Pegel durchbrochen",
+			    " ist normal"},
+			  {" Warning: Limit is breached", 
+			   "  is NORMAL"}
 };
 
-const char* DisplayStatusEnglish[]={
-	
-	"The Battery management system is in bad condition considering the above factors \n",
-	"The Battery management system is in good condition considering the above factors \n"
+const char* DisplayStatus[][]={
+	{"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in einem schlechten Zustand. \n",
+	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n"},
+	{"The Battery management system is in bad condition considering the above factors \n",
+	"The Battery management system is in good condition considering the above factors \n"}
 };
 
-const char* DisplayStatusGerman[]={
-	
-	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in einem schlechten Zustand. \n",
-	"Das Batteriemanagementsystem ist unter Berücksichtigung der oben genannten Faktoren in gutem Zustand \n"
-	
-};
+
 /****************************************************************************
 Function declaration
 ***************************************************************************/
