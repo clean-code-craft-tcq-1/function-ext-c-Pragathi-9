@@ -17,13 +17,13 @@
 bool BMS_BreachRanges(float parameter, int index)
 
 {	
-	struct BatteryProperties boundary;
+	struct BatteryProperties properties;
 	
-	if (parameter< boundary.minimumthreshold[index])
+	if (parameter< properties.minimumthreshold[index])
 	  {		
 		  return 0;
 	  }
-	else if (parameter>= boundary.maximumthreshold[index])
+	else if (parameter>= properties.maximumthreshold[index])
 	{
 		return 0;
 	}
@@ -101,7 +101,7 @@ void BatteryReport()
   
 int main() 
 { 
-    struct BatteryProperties properties;
+    
     language=English;
     float arr[][NumberOfParameters] = {{40, 0.5, 0.3}, {46, 0.9,0.6}, {30, 0.7, 0.2}}; 
     bool resultant[NumberOfBatteries]={1,0,1};
