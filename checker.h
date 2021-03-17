@@ -17,29 +17,29 @@
 
 int language=German;
 
-typdef enum {
+enum BatteryParameters{
 	Temperature,
 	StateofCharge,
 	ChargeRate
-}BatteryParameters;
+};
 
 
 
 #define NumberOfBatteries 10
 #define NumberOfParameters 3
 
-float maximumthresholds[]={MAXTEMP, MAXSOC, MAXCHARGERATE};
-float minimumthresholds[]={MINTEMP, MINSOC, MINCHARGERATE};
+float maximumthreshold[]={MAXTEMP, MAXSOC, MAXCHARGERATE};
+float minimumthreshold[]={MINTEMP, MINSOC, MINCHARGERATE};
 
 
 typedef struct
 {
 	int parameterbreachstatus[NumberOfBatteries][NumberOfParameters];
-	BatteryParameters Attributes;
+	enum BatteryParameters Attributes;
 	float attributevalue[NumberOfBatteries][NumberOfParameters];
 	int Status[NumberOfBatteries];
-	float maximumthresholds[NumberOfParameters];
-	float minimumthresholds[NumberOfParameters];
+	float maximumthreshold[NumberOfParameters];
+	float minimumthreshold[NumberOfParameters];
 	
 }BatteryProperties;
 
@@ -74,5 +74,5 @@ const char* DisplayStatusGerman[]={
 /****************************************************************************
 Function declaration
 ***************************************************************************/
-int BatteryReport(Battery_parameters * properties);
+int BatteryReport(BatteryProperties * properties);
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters]);
