@@ -53,7 +53,7 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 		}
 		
 		properties-> Status[BatteryIndex]= Battery_status;
-		if ((properties-> Status[BatteryIndex])=(resultant[BatteryIndex]))
+		if ((properties-> Status[BatteryIndex])==(resultant[BatteryIndex]))
 		{
 			flag=1;
 		}
@@ -75,7 +75,7 @@ void BatteryReport()
 		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
 			
 		{	
-			if (language=German)
+			if (language==German)
 			{
 				printf("%s = %f and %s", BMSattributeEnglish[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
@@ -84,7 +84,7 @@ void BatteryReport()
 				printf("%s = %f and %s", BMSattributeGerman[ParameterIndex],properties->attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties-> parameterbreachstatus[BatteryIndex][ParameterIndex])]);
 			}
 		}
-		if (language=German)
+		if (language==German)
 			{
 			printf ("Battery %d is %s",BatteryIndex,DisplayStatusEnglish[properties-> Status[BatteryIndex]]);
 			}
