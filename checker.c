@@ -27,7 +27,7 @@ bool BMS_BreachRanges(float parameter, int index)
 
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool resultant[NumberOfBatteries])
 {
-	int flag=1;
+	int flag=0;
 	int final_status=1;
 	struct BatteryProperties properties;
 	int BatteryIndex,ParameterIndex;
@@ -40,20 +40,12 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters],  bool result
 		{
 			properties.Attributes=ParameterIndex;
 			properties.attributevalue[BatteryIndex][ParameterIndex]= (array[BatteryIndex][ParameterIndex]);
-			//returns 0 or 1 so comments will be in range and out of range
 			properties.parameterbreachstatus[BatteryIndex][ParameterIndex]= BMS_BreachRanges((array[BatteryIndex][ParameterIndex]),ParameterIndex);
 			Battery_status= Battery_status & (properties.parameterbreachstatus[BatteryIndex][ParameterIndex]);
 		}
 		
 		properties.Status[BatteryIndex]= Battery_status;
-		if ((properties.Status[BatteryIndex])==(resultant[BatteryIndex]))
-		{
-			flag=1;
-		}
-		else
-		{	
-			flag=0;
-		}
+		flag= (((properties.Status[BatteryIndex])==(resultant[BatteryIndex]))? 1:0);
 		final_status &= flag;
 	}
 	
@@ -69,23 +61,12 @@ void BatteryReport()
 		for (ParameterIndex=0;ParameterIndex<NumberOfParameters;ParameterIndex++)
 			
 		{	
-			if (language==English)
-			{
-				printf("%s = %f and %s \n", BMSattributeEnglish[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinEnglish[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
-			}
-			else
-			{
-				printf("%s = %f and %s \n", BMSattributeGerman[ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], DisplayinGerman[(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
-			}
+			printf("%s = %f, %s \n", BMSattribute[language][ParameterIndex],properties.attributevalue[BatteryIndex][ParameterIndex], Display[language][(properties.parameterbreachstatus[BatteryIndex][ParameterIndex])]);
+			
 		}
-		if (language==English)
-			{
-			printf ("Battery %d is %s \n",BatteryIndex,DisplayStatusEnglish[properties.Status[BatteryIndex]]);
-			}
-		else
-			{
-			printf ("Battery %d is %s \n",BatteryIndex,DisplayStatusGerman[properties.Status[BatteryIndex]]);
-		}
+		
+		printf ("Battery %d -> %s \n",BatteryIndex,DisplayStatus[language][properties.Status[BatteryIndex]]);
+		
 	}
 	
 	
