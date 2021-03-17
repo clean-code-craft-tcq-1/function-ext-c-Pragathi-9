@@ -17,7 +17,7 @@
 bool BMS_BreachRanges(float parameter, int index)
 
 {	
-	Battery_parameters boundary;
+	BatteryProperties boundary;
 	
 	if (parameter< boundary.minimumthreshold[index])
 	  {		
@@ -37,7 +37,7 @@ bool BMS_BreachRanges(float parameter, int index)
 int Accumulator(float array[NumberOfBatteries][NumberOfParameters])
 {
 	
-	Battery_parameters *properties;
+	BatteryProperties *properties;
 	int Battery_status= 1;
 	int BatteryIndex,ParameterIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
@@ -57,7 +57,7 @@ int Accumulator(float array[NumberOfBatteries][NumberOfParameters])
 	return (properties-> Status[NumberOfBatteries]);
 }
 	
-int BatteryReport(Battery_parameters * properties)
+int BatteryReport(BatteryProperties * properties)
 {
 	int ParameterIndex,BatteryIndex;
 	for (BatteryIndex=0;BatteryIndex<NumberOfBatteries;BatteryIndex++)
