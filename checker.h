@@ -64,4 +64,4 @@ Function declaration
 ***************************************************************************/
 void BMS_ReportingController(struct BatteryProperties);
 void BMS_Report(struct BatteryProperties);
-properties BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);
+BatteryProperties BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);
