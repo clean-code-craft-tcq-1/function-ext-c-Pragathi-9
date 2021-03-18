@@ -31,7 +31,7 @@ bool BMS_AttributeinRangeStatus(float parametervalue, int index)
  * input: Array which has parameter values of different batteries.
  * returns: Verification of the checked Battery status against the expected.
  *********************************************************************************/
-properties BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[])
+BatteryProperties BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[])
 {
 	int VerifyResult=0;
 	struct BatteryProperties properties;
@@ -96,7 +96,7 @@ int main()
     float SampleArray_1[][NumberOfParameters] = {{40, 0.2, 30}, {46, 0.3,80}, {30, 0.4, 40}}; 
     bool Expectedresultant_1[]={1,0,1};
     Accumulatedproperties=(BMS_AttributeStatusAccumulator(SampleArray_1,Expectedresultant_1));
-    assert(Accumulateproperties.VerifiedResultfromBatteries);
+    assert(Accumulatedproperties.VerifiedResultfromBatteries);
     BMS_ReportingController(Accumulateproperties);
     
     language=German;
