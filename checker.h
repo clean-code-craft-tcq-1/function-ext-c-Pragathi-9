@@ -34,7 +34,8 @@ struct BatteryProperties
 	int AttributeinRangeStatus[NumberOfBatteries][NumberOfParameters];
 	enum BatteryParameters Attributes;
 	float AttributeValue[NumberOfBatteries][NumberOfParameters];
-	int BatteryStatus[NumberOfBatteries];	
+	int BatteryStatus[NumberOfBatteries];
+	int VerifiedResultfromBatteries;
 };
 
 
@@ -61,5 +62,6 @@ const char* BMS_StatusDisplay[][2]={
 /****************************************************************************
 Function declaration
 ***************************************************************************/
-void BMS_ReportingController();
-int BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);
+void BMS_ReportingController(struct BatteryProperties);
+void BMS_Report(struct BatteryProperties);
+properties BMS_AttributeStatusAccumulator(float Input_Attribute[NumberOfBatteries][NumberOfParameters],  bool Expected_result[]);
